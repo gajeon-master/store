@@ -1,0 +1,1323 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>가전졸업의 성지 | 최고 혜택가로 만나는 가전</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #DC2626;
+    --red-dark: #B91C1C;
+    --navy: #18181B;
+    --navy-light: #27272A;
+    --gold: #F59E0B;
+    --bg: #FAFAFA;
+    --white: #FFFFFF;
+    --gray: #71717A;
+    --light: #F4F4F5;
+    --border: #E4E4E7;
+    --text: #18181B;
+    --shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.06);
+    --shadow-lg: 0 4px 16px rgba(0,0,0,0.08);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  body { font-family:'Noto Sans KR',sans-serif; background:var(--bg); color:var(--text); line-height:1.5; }
+
+  /* === HEADER === */
+  /* === HEADER === */
+  .topbar { background:var(--red); color:#fff; text-align:center; padding:7px; font-size:12px; font-weight:600; letter-spacing:0.3px; }
+  header { background:#fff; color:var(--text); padding:14px 16px; position:sticky; top:0; z-index:100; box-shadow:0 1px 0 var(--border); }
+  .header-inner { display:flex; justify-content:space-between; align-items:center; gap:10px; max-width:900px; margin:0 auto; }
+  .brand { display:flex; align-items:center; gap:12px; }
+  .brand-logo-svg { width:42px; height:42px; background:var(--red); padding:4px; border-radius:10px; display:flex; align-items:center; justify-content:center; }
+  .brand-logo-svg svg { display:block; }
+  .brand-text { line-height:1.3; }
+  .brand-name { font-size:15px; font-weight:800; color:var(--text); letter-spacing:-0.3px; }
+  .brand-sub { font-size:10px; color:var(--gray); margin-top:2px; }
+  .call-btn { background:var(--text); color:#fff; border:none; padding:9px 16px; border-radius:20px; font-size:12px; font-weight:700; text-decoration:none; display:flex; align-items:center; gap:4px; }
+
+  /* === HERO === */
+  .hero { background:linear-gradient(135deg, #FAFAFA 0%, #F4F4F5 100%); color:var(--text); padding:40px 20px; position:relative; overflow:hidden; min-height:240px; border-bottom:1px solid var(--border); }
+  .hero-bg-img { position:absolute; right:-30px; top:50%; transform:translateY(-50%); opacity:0.08; pointer-events:none; }
+  .hero-bg-img svg { width:280px; height:280px; }
+  .hero-content { position:relative; z-index:2; max-width:65%; }
+  .hero-badges { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:16px; }
+  .hero-badge { background:#fff; border:1px solid var(--border); color:var(--gray); padding:5px 12px; border-radius:20px; font-size:11px; font-weight:600; }
+  .hero h1 { font-size:26px; font-weight:900; line-height:1.3; margin-bottom:10px; color:var(--text); letter-spacing:-0.5px; }
+  .hero h1 em { color:var(--red); font-style:normal; font-weight:900; }
+  .hero p { font-size:13px; color:var(--gray); margin-bottom:0; line-height:1.6; }
+  @media(max-width:480px){
+    .hero-bg-img { opacity:0.06; }
+    .hero-bg-img svg { width:200px; height:200px; }
+    .hero-content { max-width:75%; }
+    .hero h1 { font-size:21px; }
+  }
+  .hero-steps { display:flex; gap:6px; }
+  .hero-step { flex:1; background:rgba(255,255,255,0.08); padding:8px 4px; border-radius:8px; font-size:10px; text-align:center; border:1px solid rgba(255,255,255,0.15); }
+  .hero-step b { display:block; font-size:14px; color:var(--gold); margin-bottom:2px; }
+
+  /* === MAIN === */
+  main { max-width:900px; margin:0 auto; padding:16px; }
+
+  .section { margin-bottom:20px; }
+  .section-title { display:flex; align-items:center; gap:6px; font-size:13px; font-weight:700; margin-bottom:10px; color:var(--gray); letter-spacing:0.3px; }
+  .section-title .num { background:var(--red); color:#fff; width:18px; height:18px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:900; }
+
+  /* === FILTERS === */
+  .filter-wrap { background:var(--white); border-radius:12px; padding:12px; box-shadow:var(--shadow); margin-bottom:12px; }
+  .filter-row { display:flex; gap:6px; overflow-x:auto; padding:2px; scrollbar-width:none; margin-bottom:8px; }
+  .filter-row::-webkit-scrollbar { display:none; }
+  .filter-row:last-child { margin-bottom:0; }
+  .chip { background:var(--light); border:1.5px solid transparent; color:var(--navy); padding:6px 14px; border-radius:20px; font-size:12px; font-weight:700; cursor:pointer; white-space:nowrap; transition:all 0.15s; font-family:inherit; }
+  .chip.active { background:var(--navy); color:#fff; }
+  .chip.brand-samsung.active { background:#1428A0; }
+  .chip.brand-lg.active { background:#A50034; }
+  .search { width:100%; padding:10px 14px; border:1.5px solid var(--border); border-radius:10px; font-size:14px; outline:none; font-family:inherit; }
+  .search:focus { border-color:var(--navy); }
+
+  /* === PRODUCT GRID === */
+  .product-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  @media(min-width:600px){ .product-grid { grid-template-columns:repeat(3,1fr); } }
+  @media(min-width:900px){ .product-grid { grid-template-columns:repeat(4,1fr); } }
+  .product { background:var(--white); border-radius:12px; padding:12px; box-shadow:var(--shadow); display:flex; flex-direction:column; gap:5px; transition:all 0.15s; position:relative; cursor:pointer; border:2px solid transparent; }
+  .product:active { transform:scale(0.98); }
+  .p-img-wrap { width:100%; aspect-ratio:1.1/1; background:#F5F7FB; border-radius:8px; margin-bottom:6px; display:flex; align-items:center; justify-content:center; overflow:hidden; position:relative; }
+  .p-img { width:100%; height:100%; object-fit:contain; padding:8px; transition:transform 0.2s; }
+  .product:hover .p-img { transform:scale(1.05); }
+  .p-img-fallback { color:#CBD5E1; font-size:32px; font-weight:300; letter-spacing:-1px; }
+  .product.selected { border-color:var(--red); box-shadow:0 4px 16px rgba(230,0,18,0.25); }
+  .product.selected::after { content:'✓'; position:absolute; top:-8px; right:-8px; background:var(--red); color:#fff; width:26px; height:26px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:900; font-size:14px; box-shadow:0 2px 8px rgba(230,0,18,0.4); }
+  .p-tag { position:absolute; top:8px; left:8px; background:var(--red); color:#fff; font-size:9px; font-weight:900; padding:2px 6px; border-radius:3px; letter-spacing:0.5px; }
+  .p-tag.NEW { background:var(--navy); }
+  .p-brand { font-size:10px; font-weight:900; color:var(--gray); display:flex; align-items:center; gap:4px; }
+  .p-brand .dot { width:8px; height:8px; border-radius:50%; }
+  .p-brand .dot.samsung { background:#1428A0; }
+  .p-brand .dot.lg { background:#A50034; }
+  .p-cat { font-size:11px; color:var(--gray); }
+  .p-name { font-size:13px; font-weight:700; line-height:1.4; min-height:36px; }
+  .p-model { font-size:10px; color:#999; font-family:monospace; }
+  .p-features { display:flex; flex-wrap:wrap; gap:3px; margin:4px 0; }
+  .p-feat { background:var(--light); color:var(--navy); font-size:9px; padding:2px 6px; border-radius:3px; font-weight:700; }
+  .p-price-orig { font-size:11px; color:#999; text-decoration:line-through; }
+  .p-price { font-size:16px; font-weight:900; color:var(--red); }
+
+  /* === CART/SUMMARY === */
+  .cart-box { background:var(--white); border-radius:12px; padding:14px; box-shadow:var(--shadow); margin-bottom:12px; }
+  .cart-empty { text-align:center; padding:24px 12px; color:var(--gray); font-size:13px; }
+  .cart-item { display:flex; align-items:center; gap:10px; padding:8px 0; border-bottom:1px solid #F0F0F0; }
+  .cart-item:last-child { border-bottom:none; }
+  .cart-item-info { flex:1; min-width:0; }
+  .cart-item-name { font-size:13px; font-weight:700; }
+  .cart-item-meta { font-size:10px; color:var(--gray); }
+  .cart-item-price { font-size:13px; font-weight:900; color:var(--red); white-space:nowrap; }
+  .cart-remove { background:none; border:none; color:#CCC; font-size:18px; cursor:pointer; padding:4px; }
+  .cart-summary { display:flex; justify-content:space-between; align-items:center; padding:8px 0 0; margin-top:8px; border-top:2px solid var(--light); font-size:13px; }
+  .cart-summary strong { color:var(--navy); font-size:16px; }
+  .multi-banner { background:linear-gradient(135deg,#FFF8E1,#FFEFC4); border:1.5px solid var(--gold); border-radius:8px; padding:10px 12px; margin-top:10px; font-size:12px; font-weight:700; color:#8B5A00; }
+  .multi-banner b { color:var(--red); font-size:14px; }
+
+  /* === DISCOUNT SECTION === */
+  .disc-box { background:var(--white); border-radius:12px; padding:14px; box-shadow:var(--shadow); margin-bottom:12px; }
+  .disc-title { font-size:13px; font-weight:900; color:var(--navy); margin-bottom:10px; display:flex; align-items:center; gap:6px; }
+  .disc-grid { display:grid; gap:8px; }
+  .disc-item { display:flex; align-items:center; gap:10px; padding:10px 12px; background:var(--bg); border:2px solid transparent; border-radius:8px; cursor:pointer; transition:all 0.15s; }
+  .disc-item input { width:18px; height:18px; accent-color:var(--red); cursor:pointer; }
+  .disc-item:hover { background:var(--light); }
+  .disc-item.checked { background:#FEF2F3; border-color:var(--red); }
+  .disc-info { flex:1; }
+  .disc-label { font-size:13px; font-weight:700; }
+  .disc-sub { font-size:11px; color:var(--gray); margin-top:2px; }
+  .disc-amount { font-size:13px; font-weight:900; color:var(--red); }
+
+  /* === BENEFIT BOX === */
+  .benefit-box { background:linear-gradient(135deg,var(--navy),var(--navy-light)); color:#fff; border-radius:14px; padding:20px; box-shadow:var(--shadow-lg); position:relative; overflow:hidden; margin-bottom:12px; }
+  .benefit-box::before { content:'🔥'; position:absolute; right:-10px; bottom:-10px; font-size:80px; opacity:0.1; }
+  .benefit-title { font-size:13px; font-weight:700; color:var(--gold); margin-bottom:8px; }
+  .benefit-orig { font-size:14px; color:#A8C0E0; text-decoration:line-through; margin-bottom:6px; }
+  .benefit-final-label { font-size:12px; color:#C5D5EC; }
+  .benefit-final { font-size:32px; font-weight:900; line-height:1.2; margin:4px 0; color:var(--gold); }
+  .benefit-saving { display:inline-block; background:var(--red); color:#fff; padding:4px 12px; border-radius:20px; font-size:12px; font-weight:900; margin-top:6px; }
+  .benefit-detail-toggle { background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.3); color:#fff; padding:8px 12px; border-radius:8px; font-size:12px; font-weight:700; cursor:pointer; margin-top:14px; width:100%; font-family:inherit; }
+  .benefit-detail { display:none; background:rgba(0,0,0,0.2); border-radius:8px; padding:12px; margin-top:10px; font-size:12px; }
+  .benefit-detail.open { display:block; }
+  .benefit-detail-row { display:flex; justify-content:space-between; padding:4px 0; border-bottom:1px solid rgba(255,255,255,0.1); }
+  .benefit-detail-row:last-child { border-bottom:none; }
+  .benefit-detail-row.disc { color:var(--gold); font-weight:700; }
+  .card-info { background:rgba(255,184,0,0.15); border:1px solid var(--gold); border-radius:6px; padding:8px 10px; margin-top:10px; font-size:11px; color:var(--gold); }
+
+  /* === FORM === */
+  .form-box { background:var(--white); border-radius:14px; padding:20px; box-shadow:var(--shadow); margin-bottom:12px; }
+  .form-intro { color:var(--gray); font-size:13px; margin-bottom:16px; padding:10px 12px; background:var(--bg); border-radius:8px; border-left:3px solid var(--red); }
+  .form-grid { display:grid; gap:12px; }
+  @media(min-width:520px){ .form-grid { grid-template-columns:1fr 1fr; } .form-full { grid-column:span 2; } }
+  .form-group label { display:block; font-size:12px; font-weight:700; margin-bottom:5px; color:var(--text); }
+  .form-group label .req { color:var(--red); }
+  .form-control { width:100%; padding:11px 13px; border:1.5px solid var(--border); border-radius:8px; font-size:14px; outline:none; font-family:inherit; background:var(--white); }
+  .form-control:focus { border-color:var(--navy); }
+  textarea.form-control { resize:vertical; min-height:70px; }
+
+  .check-row { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+  .check-item { display:flex; align-items:center; gap:8px; padding:10px 12px; background:var(--bg); border:1.5px solid transparent; border-radius:8px; cursor:pointer; font-size:13px; font-weight:700; transition:all 0.15s; }
+  .check-item input { accent-color:var(--red); width:16px; height:16px; }
+  .check-item.checked { background:#FEF2F3; border-color:var(--red); color:var(--red); }
+  .check-item .bonus { font-size:10px; color:var(--gold); font-weight:900; margin-left:auto; }
+  .check-item.checked .bonus { color:var(--red); }
+
+  .submit-btn { width:100%; padding:16px; background:var(--red); color:#fff; border:none; border-radius:10px; font-size:16px; font-weight:900; cursor:pointer; font-family:inherit; transition:all 0.15s; box-shadow:0 4px 16px rgba(230,0,18,0.3); margin-top:8px; }
+  .submit-btn:active { transform:scale(0.98); }
+  .submit-btn:disabled { background:#999; cursor:not-allowed; box-shadow:none; }
+
+  .success { display:none; background:linear-gradient(135deg,#10B981,#059669); color:#fff; border-radius:14px; padding:32px 20px; text-align:center; box-shadow:var(--shadow-lg); margin-bottom:12px; }
+  .success.show { display:block; }
+  .success-icon { font-size:60px; margin-bottom:12px; }
+  .success h2 { font-size:20px; font-weight:900; margin-bottom:8px; }
+  .success p { font-size:13px; opacity:0.9; line-height:1.7; }
+
+  /* === NOTICE === */
+  .notice { background:#FFF8E1; border-left:4px solid var(--gold); border-radius:0 10px 10px 0; padding:14px 16px; margin-bottom:16px; font-size:12px; color:#5A4500; line-height:1.7; }
+  .notice b { color:var(--red); }
+
+  /* === FOOTER === */
+  footer { background:var(--navy); color:#A8C0E0; padding:24px 20px; text-align:center; margin-top:30px; }
+  footer .name { font-size:14px; font-weight:900; color:#fff; margin-bottom:6px; }
+  footer .info { font-size:12px; line-height:1.8; }
+  footer .copy { font-size:10px; color:#5A7DB0; margin-top:10px; padding-top:10px; border-top:1px solid #1A4480; }
+
+  /* === FLOATING === */
+  .floating { position:fixed; bottom:16px; right:16px; z-index:50; display:flex; flex-direction:column; gap:8px; }
+  .floating a, .floating button { background:var(--red); color:#fff; border:none; width:50px; height:50px; border-radius:50%; box-shadow:0 4px 16px rgba(0,0,0,0.25); display:flex; align-items:center; justify-content:center; font-size:20px; cursor:pointer; text-decoration:none; }
+  .floating a.kakao { background:#FEE500; color:#3C1E1E; }
+
+  /* === ACCORDION CATEGORIES (Minimal Clean Design) === */
+  .cat-accordion { background:var(--white); border-radius:10px; box-shadow:var(--shadow); margin-bottom:8px; overflow:hidden; border:1px solid var(--border); }
+  .cat-header { display:flex; align-items:center; justify-content:space-between; padding:16px 18px; cursor:pointer; user-select:none; transition:background 0.15s; position:relative; }
+  .cat-header::before { content:''; position:absolute; left:0; top:0; bottom:0; width:4px; background:var(--navy); transition:all 0.2s; }
+  .cat-header:active { background:#FAFBFD; }
+  .cat-header.open { background:#FAFBFD; }
+  .cat-header.open::before { background:var(--red); }
+  .cat-header-l { display:flex; align-items:center; gap:14px; }
+  .cat-title { font-size:15px; font-weight:700; color:var(--navy); letter-spacing:-0.3px; }
+  .cat-header.open .cat-title { color:var(--red); }
+  .cat-count { background:var(--bg); color:var(--gray); font-size:11px; padding:3px 10px; border-radius:10px; font-weight:600; letter-spacing:0.3px; }
+  .cat-header.open .cat-count { background:var(--red); color:#fff; }
+  .cat-arrow { font-size:11px; transition:transform 0.2s; color:#BBB; font-weight:700; }
+  .cat-header.open .cat-arrow { transform:rotate(180deg); color:var(--red); }
+  .cat-body { display:none; padding:16px; background:#FAFBFD; border-top:1px solid var(--border); }
+  .cat-body.open { display:block; }
+  .cat-body .product-grid { margin:0; }
+
+  /* === PACKAGE === */
+  .pkg-tabs { display:flex; gap:6px; margin-bottom:14px; padding:4px; background:var(--white); border-radius:10px; box-shadow:var(--shadow); overflow-x:auto; }
+  .pkg-tab { flex:1; min-width:100px; padding:10px 12px; border:none; background:none; font-size:13px; font-weight:700; color:var(--gray); cursor:pointer; border-radius:7px; white-space:nowrap; font-family:inherit; transition:all 0.15s; }
+  .pkg-tab.active { background:var(--red); color:#fff; }
+
+  .pkg-grid { display:grid; grid-template-columns:1fr; gap:12px; }
+  @media(min-width:700px){ .pkg-grid { grid-template-columns:1fr 1fr; } }
+
+  .pkg-card { background:linear-gradient(135deg, #fff 0%, #FFF8F8 100%); border-radius:14px; padding:16px; box-shadow:var(--shadow); border:2px solid transparent; cursor:pointer; transition:all 0.15s; position:relative; }
+  .pkg-card:hover { box-shadow:0 8px 24px rgba(230,0,18,0.15); transform:translateY(-2px); }
+  .pkg-card.selected { border-color:var(--red); box-shadow:0 8px 24px rgba(230,0,18,0.25); }
+  .pkg-card.selected::after { content:'✓ 선택됨'; position:absolute; top:8px; right:8px; background:var(--red); color:#fff; padding:3px 10px; border-radius:12px; font-size:11px; font-weight:900; }
+  .pkg-tag { display:inline-block; background:var(--gold); color:#5A4500; font-size:10px; font-weight:900; padding:2px 8px; border-radius:4px; margin-bottom:8px; }
+  .pkg-tag.WEDDING { background:#FF66B2; color:#fff; }
+  .pkg-tag.BEST { background:var(--red); color:#fff; }
+  .pkg-name { font-size:17px; font-weight:900; color:var(--navy); margin-bottom:6px; }
+  .pkg-desc { font-size:12px; color:var(--gray); margin-bottom:10px; }
+  .pkg-items { background:var(--bg); padding:10px; border-radius:8px; font-size:11px; line-height:1.6; color:#444; margin-bottom:10px; }
+  .pkg-items strong { color:var(--navy); }
+  .pkg-prices { display:flex; justify-content:space-between; align-items:center; padding-top:10px; border-top:1px dashed var(--border); }
+  .pkg-orig { font-size:12px; color:var(--gray); text-decoration:line-through; }
+  .pkg-final { font-size:20px; font-weight:900; color:var(--red); }
+  .pkg-saving { display:inline-block; background:var(--gold); color:#5A4500; font-size:11px; padding:2px 8px; border-radius:10px; font-weight:900; margin-top:4px; }
+
+  /* Package modal */
+  .pkg-modal-bg { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:300; align-items:center; justify-content:center; padding:16px; }
+  .pkg-modal-bg.open { display:flex; }
+  .pkg-modal { background:#fff; border-radius:14px; max-width:500px; width:100%; max-height:85vh; overflow-y:auto; padding:24px; }
+  .pkg-modal h2 { font-size:20px; font-weight:900; color:var(--navy); margin-bottom:6px; }
+  .pkg-modal-close { position:absolute; top:16px; right:16px; background:none; border:none; font-size:24px; cursor:pointer; color:#999; }
+  .pkg-detail-list { background:var(--bg); padding:12px; border-radius:8px; margin:12px 0; font-size:13px; line-height:1.8; }
+  .pkg-detail-row { display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px solid var(--border); }
+  .pkg-detail-row:last-child { border-bottom:none; }
+
+  /* === LOADING === */
+  .loading { text-align:center; padding:40px 20px; color:var(--gray); }
+  .spinner { display:inline-block; width:30px; height:30px; border:3px solid var(--light); border-top-color:var(--red); border-radius:50%; animation:spin 0.8s linear infinite; }
+  @keyframes spin { to { transform:rotate(360deg); } }
+
+  /* === TOAST === */
+  #toast { position:fixed; bottom:80px; left:50%; transform:translateX(-50%) translateY(100px); background:#1F2937; color:#fff; padding:12px 22px; border-radius:30px; font-size:13px; font-weight:700; z-index:9999; box-shadow:0 4px 20px rgba(0,0,0,0.3); transition:transform 0.3s; white-space:nowrap; }
+  #toast.show { transform:translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+
+<div class="topbar">🎓 이사·입주·웨딩가전 — 가전 졸업하세요!</div>
+
+<header>
+  <div class="header-inner">
+    <div class="brand">
+      <div class="brand-logo-svg">
+        <svg width="36" height="36" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 8 L4 16 L20 22 L36 16 Z" fill="#fff"/>
+          <path d="M14 19 L14 28 Q14 30 20 30 Q26 30 26 28 L26 19" fill="#fff" opacity="0.85"/>
+          <line x1="34" y1="14" x2="34" y2="22" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="34" cy="24" r="2.5" fill="#FCD34D"/>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <div class="brand-name">가전졸업의 성지</div>
+        <div class="brand-sub">최고 혜택가로 만나는 가전</div>
+      </div>
+    </div>
+    <a href="#" class="call-btn" onclick="document.querySelector('.section').scrollIntoView({behavior:'smooth'});return false;">상담 신청 →</a>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="hero-bg-img">
+    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <path d="M100 30 L20 70 L100 100 L180 70 Z" fill="#DC2626"/>
+      <path d="M60 85 L60 130 Q60 145 100 145 Q140 145 140 130 L140 85" fill="#DC2626" opacity="0.85"/>
+      <line x1="170" y1="65" x2="170" y2="120" stroke="#DC2626" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="170" cy="130" r="10" fill="#F59E0B"/>
+    </svg>
+  </div>
+  <div class="hero-content">
+    <div class="hero-badges">
+      <span class="hero-badge">🎓 가전 종합 매장</span>
+      <span class="hero-badge">🛡️ 정품보증</span>
+      <span class="hero-badge">🚚 무료설치</span>
+    </div>
+    <h1>이사·입주·웨딩 가전,<br>이제 <em>졸업</em>하세요!</h1>
+    <p>제휴카드 캐시백 + IPTV 84만원<br>+ 다품목 추가할인까지!</p>
+  </div>
+</div>
+
+<main>
+
+  <!-- STEP 1: 제품선택 -->
+  <div class="section">
+    <div class="section-title"><span class="num">1</span>제품 선택</div>
+
+    <!-- 패키지/개별 탭 -->
+    <div class="pkg-tabs">
+      <button class="pkg-tab active" id="modeTab-pkg" onclick="switchMode('pkg')">🎁 BEST 패키지</button>
+      <button class="pkg-tab" id="modeTab-single" onclick="switchMode('single')">📦 개별 상품 선택</button>
+    </div>
+
+    <!-- 패키지 모드 -->
+    <div id="pkgMode">
+      <div class="pkg-grid" id="pkgGrid">
+        <div class="loading"><div class="spinner"></div><p style="margin-top:10px">패키지 불러오는 중...</p></div>
+      </div>
+    </div>
+
+    <!-- 개별 모드 -->
+    <div id="singleMode" style="display:none;">
+      <div class="filter-wrap">
+        <input type="text" class="search" id="searchInput" placeholder="🔍 모델명 또는 상품명 검색" oninput="renderProducts()">
+        <div class="filter-row" id="brandFilter"></div>
+      </div>
+      <div id="categoryAccordion">
+        <div class="loading"><div class="spinner"></div><p style="margin-top:10px">상품 불러오는 중...</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 2: 선택한 제품 -->
+  <div class="section">
+    <div class="section-title"><span class="num">2</span>선택한 제품 확인</div>
+    <div class="cart-box" id="cartBox">
+      <div class="cart-empty">선택한 제품이 없습니다. 위에서 제품을 선택해 주세요.</div>
+    </div>
+  </div>
+
+  <!-- STEP 3: 혜택 선택 -->
+  <div class="section">
+    <div class="section-title"><span class="num">3</span>혜택 선택</div>
+
+    <!-- 카드 -->
+    <div class="disc-box">
+      <div class="disc-title">💳 발급 희망 제휴카드 (필수)</div>
+      <div class="disc-grid" id="cardList"></div>
+    </div>
+
+    <!-- 추가 옵션 (IPTV/특별) -->
+    <div class="disc-box">
+      <div class="disc-title">🎁 추가 혜택 (선택)</div>
+      <div class="disc-grid" id="extraList"></div>
+    </div>
+  </div>
+
+  <!-- STEP 4: 최종 혜택가 -->
+  <div class="section">
+    <div class="section-title"><span class="num">4</span>최종 혜택가</div>
+    <div class="benefit-box">
+      <div class="benefit-title">🔥 최대 혜택 적용가</div>
+      <div class="benefit-orig" id="bOrig">정상가 ₩0</div>
+      <div class="benefit-final-label">최종 혜택가</div>
+      <div class="benefit-final" id="bFinal">₩0</div>
+      <div id="bSavingWrap"></div>
+      <div id="bCardInfo"></div>
+      <button class="benefit-detail-toggle" onclick="toggleDetail()" id="detailBtn">▼ 혜택 상세 보기</button>
+      <div class="benefit-detail" id="bDetail"></div>
+    </div>
+
+    <div class="notice">
+      <b>ℹ️ 안내사항</b><br>
+      • 위 혜택은 <b>예상 견적</b>이며, 실제 모델 구성 및 최종 혜택가는 상담 시 변경될 수 있습니다.<br>
+      • 행사 정책은 <b>월별로 변경</b>될 수 있습니다.<br>
+      • 정확한 혜택가는 상담 신청 후 안내드립니다.
+    </div>
+  </div>
+
+  <!-- STEP 5: 신청 -->
+  <div class="section">
+    <div class="section-title"><span class="num">5</span>상담 신청</div>
+
+    <div class="form-box" id="formBox">
+      <div class="form-intro">
+        💬 아래 정보를 입력하시면 담당자가 빠르게 연락드립니다.<br>
+        <b style="color:var(--red)">보통 영업시간 내 1~2시간 이내 연락</b>드립니다.
+      </div>
+
+      <!-- 신청 유형 (단일 선택) -->
+      <div class="form-group form-full" style="margin-bottom:14px;">
+        <label>📋 신청 유형 <span class="req">*</span> <span style="color:#888;font-weight:400;font-size:11px">(1개만 선택)</span></label>
+        <div class="check-row">
+          <label class="check-item" id="ct1">
+            <input type="radio" name="applyType" value="이사" onchange="updateExtras()">
+            🚚 이사
+          </label>
+          <label class="check-item" id="ct2">
+            <input type="radio" name="applyType" value="신축아파트입주" data-extra="신축아파트" onchange="updateExtras()">
+            🏢 신축아파트 입주
+            <span class="bonus">+추가할인</span>
+          </label>
+          <label class="check-item" id="ct3">
+            <input type="radio" name="applyType" value="웨딩" data-extra="웨딩" onchange="updateExtras()">
+            💍 웨딩
+            <span class="bonus">+추가할인</span>
+          </label>
+          <label class="check-item" id="ct4">
+            <input type="radio" name="applyType" value="일반구매" onchange="updateExtras()">
+            🛒 일반구매
+          </label>
+        </div>
+      </div>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label>고객명 <span class="req">*</span></label>
+          <input type="text" class="form-control" id="fName" placeholder="홍길동">
+        </div>
+        <div class="form-group">
+          <label>연락처 <span class="req">*</span></label>
+          <input type="tel" class="form-control" id="fPhone" placeholder="010-0000-0000">
+        </div>
+        <div class="form-group form-full">
+          <label>거주 지역 <span class="req">*</span></label>
+          <select class="form-control" id="fAddr">
+            <option value="">지역을 선택해 주세요</option>
+            <option value="서울">서울특별시</option>
+            <option value="부산">부산광역시</option>
+            <option value="대구">대구광역시</option>
+            <option value="인천">인천광역시</option>
+            <option value="광주">광주광역시</option>
+            <option value="대전">대전광역시</option>
+            <option value="울산">울산광역시</option>
+            <option value="세종">세종특별자치시</option>
+            <option value="경기">경기도</option>
+            <option value="강원">강원특별자치도</option>
+            <option value="충북">충청북도</option>
+            <option value="충남">충청남도</option>
+            <option value="전북">전북특별자치도</option>
+            <option value="전남">전라남도</option>
+            <option value="경북">경상북도</option>
+            <option value="경남">경상남도</option>
+            <option value="제주">제주특별자치도</option>
+          </select>
+        </div>
+        <div class="form-group form-full">
+          <label>희망 배송/방문일</label>
+          <input type="date" class="form-control" id="fDate">
+        </div>
+        <div class="form-group form-full">
+          <label>요청사항</label>
+          <textarea class="form-control" id="fMemo" placeholder="설치 요청, 폐가전 수거 여부, 기타 문의사항"></textarea>
+        </div>
+      </div>
+
+      <button class="submit-btn" id="submitBtn" onclick="submitForm()">📋 상담 신청하기 (무료)</button>
+    </div>
+
+    <div class="success" id="success">
+      <div class="success-icon">✅</div>
+      <h2>상담 신청 완료!</h2>
+      <p id="successMsg"></p>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <div class="name">🎓 가전졸업의 성지</div>
+  <div class="info">
+    이사·입주·웨딩가전 종합 매장<br>
+    삼성·LG 가전 최고 혜택가
+  </div>
+  <div class="copy">© 2026 가전졸업의 성지</div>
+</footer>
+
+<div class="floating">
+  <button onclick="document.querySelector('.section').scrollIntoView({behavior:'smooth'})" title="상담 신청" style="background:var(--red);color:#fff;border:none;width:50px;height:50px;border-radius:50%;box-shadow:0 4px 16px rgba(220,38,38,0.4);font-size:18px;cursor:pointer;font-family:inherit">📋</button>
+</div>
+
+<div id="toast"></div>
+
+<!-- 패키지 상세 모달 -->
+<div class="pkg-modal-bg" id="pkgModalBg" onclick="if(event.target===this)closePkgModal()">
+  <div class="pkg-modal" id="pkgModalContent" style="position:relative">
+    <button class="pkg-modal-close" onclick="closePkgModal()">✕</button>
+    <div id="pkgModalBody"></div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// 🔗 백엔드 URL
+// ============================================================
+const API_URL = 'https://script.google.com/macros/s/AKfycbw2CNXlJdkQMXHkKcL7HVFUqIN9EqW4OczoBRpHgstSaRyGgUR5mmazaqjHn2OJ64ffUA/exec';
+
+// ============================================================
+// 상태
+// ============================================================
+let products = [];
+let discounts = [];
+let multiDiscounts = [];
+let monthlyEvents = [];
+let packages = [];
+let selectedIds = new Set();
+let selectedCardId = null;
+let selectedExtras = new Set();
+let selectedPackage = null; // 선택된 패키지
+let currentMode = 'pkg'; // 'pkg' or 'single'
+let currentBrand = 'all';
+let openCategories = new Set(); // 열린 카테고리 (아코디언)
+
+// ============================================================
+// 유틸
+// ============================================================
+const fmt = n => '₩' + (n||0).toLocaleString('ko-KR');
+const toast = msg => {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 2200);
+};
+
+// ============================================================
+// 데이터 불러오기
+// ============================================================
+async function loadData() {
+  try {
+    const res = await fetch(API_URL + '?action=all');
+    const json = await res.json();
+    if (!json.success) throw new Error(json.error);
+
+    products = (json.data.products || []).map(normalizeProduct);
+    discounts = json.data.discounts || [];
+    multiDiscounts = json.data.multi || [];
+    monthlyEvents = json.data.monthly || [];
+    packages = json.data.packages || [];
+
+    renderFilters();
+    renderProducts();
+    renderPackages();
+    renderCards();
+    renderExtras();
+  } catch (err) {
+    document.getElementById('categoryAccordion').innerHTML =
+      `<div style="text-align:center;padding:40px;color:#999">
+        ⚠️ 데이터를 불러올 수 없습니다.<br><small>${err.message}</small>
+      </div>`;
+  }
+}
+
+// ============================================================
+// 🛡️ 데이터 정규화 (시트 컬럼명/공백 오류 자동 수정)
+// ============================================================
+function normalizeProduct(p) {
+  // 키 트림 처리 + 한국어/영어 컬럼명 모두 인식
+  const cleaned = {};
+  Object.keys(p).forEach(k => {
+    cleaned[String(k).trim()] = p[k];
+  });
+  // 영문 컬럼명도 호환
+  return {
+    'ID': cleaned['ID'] || cleaned['id'] || cleaned['Id'],
+    '카테고리': String(cleaned['카테고리'] || cleaned['Category'] || cleaned['category'] || '').trim() || '기타',
+    '브랜드': String(cleaned['브랜드'] || cleaned['Brand'] || cleaned['brand'] || '').trim(),
+    '모델명': String(cleaned['모델명'] || cleaned['Model'] || cleaned['model'] || '').trim(),
+    '상품명': String(cleaned['상품명'] || cleaned['Name'] || cleaned['name'] || '').trim(),
+    '정상가': Number(cleaned['정상가'] || cleaned['OriginalPrice'] || 0) || 0,
+    '판매가': Number(cleaned['판매가'] || cleaned['Price'] || 0) || 0,
+    '특징': cleaned['특징'] || cleaned['Features'] || '',
+    '태그': cleaned['태그'] || cleaned['Tag'] || '',
+    '활성': cleaned['활성'] || cleaned['Active'] || 'Y',
+    '다품목': cleaned['다품목'] || cleaned['Multi'] || 'Y'
+  };
+}
+
+// ============================================================
+// 모드 전환 (패키지 / 개별)
+// ============================================================
+function switchMode(mode) {
+  currentMode = mode;
+  document.getElementById('modeTab-pkg').classList.toggle('active', mode === 'pkg');
+  document.getElementById('modeTab-single').classList.toggle('active', mode === 'single');
+  document.getElementById('pkgMode').style.display = mode === 'pkg' ? 'block' : 'none';
+  document.getElementById('singleMode').style.display = mode === 'single' ? 'block' : 'none';
+}
+
+// ============================================================
+// 카테고리 아이콘 매핑
+// ============================================================
+const CAT_ICONS = {
+  '냉장고':'🧊','김치냉장고':'🥬','TV':'📺','세탁기':'🫧','건조기':'💨',
+  '에어컨':'❄️','식기세척기':'🍽️','전자레인지':'🍲','청소기':'🧹',
+  '공기청정기':'💨','스타일러':'👔','인덕션':'🔥','정수기':'🍵',
+  '비데':'🚽','노트북':'💻','안마기':'💆','제습기':'🌬️','오븐':'🔥'
+};
+
+// ============================================================
+// 브랜드 필터만 렌더 (카테고리는 아코디언으로)
+// ============================================================
+function renderFilters() {
+  // 빈 값/undefined 제거
+  const brands = ['all', ...new Set(products.map(p => p['브랜드']).filter(b => b && String(b).trim()))];
+  document.getElementById('brandFilter').innerHTML = brands.map(b => {
+    const label = b === 'all' ? '전체' : b;
+    const cls = b === '삼성' ? 'brand-samsung' : b === 'LG' ? 'brand-lg' : '';
+    return `<button class="chip ${cls} ${b===currentBrand?'active':''}" onclick="setBrand('${b}')">${label}</button>`;
+  }).join('');
+}
+
+function setBrand(b) { currentBrand = b; renderFilters(); renderProducts(); }
+
+// ============================================================
+// 상품 아코디언 렌더 (카테고리별로 접기/펼치기)
+// ============================================================
+function renderProducts() {
+  const q = document.getElementById('searchInput').value.trim().toLowerCase();
+  const filtered = products.filter(p =>
+    (currentBrand === 'all' || p['브랜드'] === currentBrand) &&
+    (!q || (p['상품명']||'').toLowerCase().includes(q) || (p['모델명']||'').toLowerCase().includes(q))
+  );
+
+  const wrap = document.getElementById('categoryAccordion');
+  if (!filtered.length) {
+    wrap.innerHTML = `<div class="empty" style="background:var(--white);padding:40px 20px;border-radius:12px;color:#999;text-align:center"><div style="font-size:42px;margin-bottom:10px">🔍</div>검색 결과가 없습니다.</div>`;
+    return;
+  }
+
+  // 검색어 있으면 자동으로 모든 카테고리 펼침
+  const autoOpen = !!q;
+
+  // 카테고리별로 그룹화
+  const grouped = {};
+  filtered.forEach(p => {
+    const cat = p['카테고리'] || '기타';
+    if (!grouped[cat]) grouped[cat] = [];
+    grouped[cat].push(p);
+  });
+
+  // 카테고리 순서 (인기 순)
+  const orderHint = ['냉장고','김치냉장고','TV','세탁기','건조기','에어컨','스타일러','식기세척기','인덕션','청소기','공기청정기','제습기','안마기'];
+  const cats = Object.keys(grouped).sort((a,b) => {
+    const ia = orderHint.indexOf(a); const ib = orderHint.indexOf(b);
+    if (ia === -1 && ib === -1) return a.localeCompare(b);
+    if (ia === -1) return 1;
+    if (ib === -1) return -1;
+    return ia - ib;
+  });
+
+  wrap.innerHTML = cats.map(cat => {
+    const isOpen = autoOpen || openCategories.has(cat);
+    const items = grouped[cat];
+    return `
+      <div class="cat-accordion">
+        <div class="cat-header ${isOpen?'open':''}" onclick="toggleCategory('${cat}')">
+          <div class="cat-header-l">
+            <span class="cat-title">${cat}</span>
+            <span class="cat-count">${items.length}</span>
+          </div>
+          <span class="cat-arrow">▼</span>
+        </div>
+        <div class="cat-body ${isOpen?'open':''}">
+          <div class="product-grid">
+            ${items.map(p => productCardHTML(p)).join('')}
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function toggleCategory(cat) {
+  if (openCategories.has(cat)) openCategories.delete(cat);
+  else openCategories.add(cat);
+  renderProducts();
+}
+
+function productCardHTML(p) {
+  const isSel = selectedIds.has(p['ID']);
+  const features = (p['특징']||'').split('|').filter(f=>f);
+  const brandLow = p['브랜드']==='삼성' ? 'samsung' : 'lg';
+  const imgPath = getProductImagePath(p['모델명']);
+  const fallbackText = (p['카테고리']||'').slice(0, 2);
+  return `
+    <div class="product ${isSel?'selected':''}" onclick="event.stopPropagation();toggleProduct(${p['ID']})">
+      ${p['태그'] ? `<span class="p-tag ${p['태그']}">${p['태그']}</span>` : ''}
+      <div class="p-img-wrap">
+        <img class="p-img" src="${imgPath}" alt="${p['모델명']}" loading="lazy"
+             data-model="${p['모델명']}" data-tried="jpg"
+             onerror="tryNextImageFormat(this)">
+        <div class="p-img-fallback" style="display:none;align-items:center;justify-content:center;width:100%;height:100%">${fallbackText}</div>
+      </div>
+      <div class="p-brand"><span class="dot ${brandLow}"></span>${p['브랜드']}</div>
+      <div class="p-cat">${p['카테고리']}</div>
+      <div class="p-name">${p['상품명']}</div>
+      <div class="p-model">${p['모델명']}</div>
+      <div class="p-features">${features.map(f=>`<span class="p-feat">${f}</span>`).join('')}</div>
+      ${p['정상가'] && p['정상가']>p['판매가'] ? `<div class="p-price-orig">${fmt(p['정상가'])}</div>` : ''}
+      <div class="p-price">${fmt(p['판매가'])}</div>
+    </div>`;
+}
+
+// ============================================================
+// 🖼️ 제품 이미지 경로 자동 생성
+// 모델명을 파일명으로 매칭 (.jpg / .png / .webp 자동)
+// ============================================================
+function getProductImagePath(modelName) {
+  if (!modelName) return '';
+  const safe = String(modelName).trim();
+  return `images/products/${safe}.jpg`;
+}
+
+// 이미지 확장자 자동 폴백 (.jpg → .jfif → .png → .webp → 기본 아이콘)
+function tryNextImageFormat(imgEl) {
+  const model = imgEl.dataset.model;
+  const tried = imgEl.dataset.tried;
+  const formats = ['jpg', 'jfif', 'png', 'webp', 'jpeg', 'JPG', 'JFIF', 'PNG', 'WEBP'];
+  const currentIdx = formats.indexOf(tried);
+  const nextFormat = formats[currentIdx + 1];
+
+  if (nextFormat) {
+    imgEl.dataset.tried = nextFormat;
+    imgEl.src = `images/products/${model}.${nextFormat}`;
+  } else {
+    // 모든 확장자 시도 실패 → fallback 표시
+    imgEl.style.display = 'none';
+    if (imgEl.nextElementSibling) {
+      imgEl.nextElementSibling.style.display = 'flex';
+    }
+  }
+}
+
+// ============================================================
+// 패키지 렌더
+// ============================================================
+function renderPackages() {
+  const grid = document.getElementById('pkgGrid');
+  if (!packages.length) {
+    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:40px 20px;background:var(--white);border-radius:12px;color:#999">
+      <div style="font-size:42px;margin-bottom:10px">🎁</div>
+      <div style="font-weight:700;margin-bottom:6px">곧 BEST 패키지가 공개됩니다!</div>
+      <div style="font-size:12px">개별 상품 선택 탭에서 먼저 살펴보세요</div>
+    </div>`;
+    return;
+  }
+
+  grid.innerHTML = packages.map(pkg => {
+    const isSel = selectedPackage && selectedPackage['ID'] == pkg['ID'];
+    const orig = +pkg['정상가'] || 0;
+    const final = +pkg['최종혜택가'] || 0;
+    const saving = orig - final;
+    const tag = pkg['태그'] || 'BEST';
+    return `
+      <div class="pkg-card ${isSel?'selected':''}" onclick="openPkgModal(${pkg['ID']})">
+        <span class="pkg-tag ${tag}">${tag === 'BEST'?'🔥 BEST 패키지':tag === 'WEDDING'?'💍 웨딩 특가':'⭐ 추천 패키지'}</span>
+        <div class="pkg-name">${pkg['패키지명']}</div>
+        <div class="pkg-desc">${pkg['설명']||''}</div>
+        <div class="pkg-items">
+          <strong>📦 포함 품목 (${(pkg['포함품목']||'').split('+').length}종)</strong><br>
+          ${pkg['포함품목']||'-'}
+        </div>
+        <div class="pkg-prices">
+          <div>
+            ${orig ? `<div class="pkg-orig">${fmt(orig)}</div>` : ''}
+            <div class="pkg-final">${fmt(final)}</div>
+            ${saving > 0 ? `<div class="pkg-saving">💸 ${fmt(saving)} 절약!</div>` : ''}
+          </div>
+          <button style="background:var(--red);color:#fff;border:none;padding:8px 14px;border-radius:8px;font-weight:900;font-size:12px;font-family:inherit;cursor:pointer;white-space:nowrap;">상세보기 →</button>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function openPkgModal(id) {
+  const pkg = packages.find(p => p['ID'] == id);
+  if (!pkg) return;
+  const orig = +pkg['정상가'] || 0;
+  const final = +pkg['최종혜택가'] || 0;
+  const saving = orig - final;
+  const items = (pkg['포함품목']||'').split('+').map(s=>s.trim()).filter(s=>s);
+  const models = (pkg['포함모델']||'').split('|').map(s=>s.trim()).filter(s=>s);
+
+  document.getElementById('pkgModalBody').innerHTML = `
+    <div style="text-align:center;margin-bottom:14px;">
+      <span class="pkg-tag ${pkg['태그']||'BEST'}">${pkg['브랜드']||''} ${pkg['태그']||'BEST'} 패키지</span>
+    </div>
+    <h2>${pkg['패키지명']}</h2>
+    <p style="color:var(--gray);font-size:13px;margin-bottom:14px">${pkg['설명']||''}</p>
+
+    <div class="pkg-detail-list">
+      <div style="font-weight:900;color:var(--navy);font-size:13px;margin-bottom:8px">📦 포함 품목 (${items.length}종)</div>
+      ${items.map((it, i) => `<div class="pkg-detail-row"><span>${i+1}. ${it}</span>${models[i]?`<span style="font-size:11px;color:var(--gray)">${models[i]}</span>`:''}</div>`).join('')}
+    </div>
+
+    <div style="background:linear-gradient(135deg,var(--navy),var(--navy-light));color:#fff;padding:16px;border-radius:10px;text-align:center;margin-top:14px">
+      ${orig ? `<div style="font-size:13px;color:#A8C0E0;text-decoration:line-through;margin-bottom:4px">정상가 ${fmt(orig)}</div>` : ''}
+      <div style="font-size:11px;color:var(--gold);margin-bottom:4px">🔥 패키지 혜택가</div>
+      <div style="font-size:26px;font-weight:900;color:var(--gold)">${fmt(final)}</div>
+      ${saving > 0 ? `<div style="background:var(--red);display:inline-block;padding:4px 12px;border-radius:20px;margin-top:8px;font-size:12px;font-weight:900">💸 ${fmt(saving)} 절약!</div>` : ''}
+    </div>
+
+    <div style="background:#FEF3C7;border-left:3px solid #F59E0B;padding:10px 12px;margin-top:12px;font-size:11px;color:#78350F;border-radius:4px;line-height:1.6">
+      ℹ️ 패키지 모델 구성 및 최종 혜택가는 본사 정책에 따라 변경될 수 있습니다.<br>
+      정확한 견적은 매장에 문의해 주세요.
+    </div>
+
+    <div style="display:flex;gap:8px;margin-top:16px">
+      <button onclick="closePkgModal()" style="flex:1;padding:13px;background:#eee;color:#333;border:none;border-radius:8px;font-weight:700;font-family:inherit;cursor:pointer">취소</button>
+      <button onclick="selectPackage(${pkg['ID']})" style="flex:2;padding:13px;background:var(--red);color:#fff;border:none;border-radius:8px;font-weight:900;font-family:inherit;cursor:pointer">✅ 이 패키지 선택</button>
+    </div>
+  `;
+  document.getElementById('pkgModalBg').classList.add('open');
+}
+
+function closePkgModal() {
+  document.getElementById('pkgModalBg').classList.remove('open');
+}
+
+function selectPackage(id) {
+  const pkg = packages.find(p => p['ID'] == id);
+  if (!pkg) return;
+  selectedPackage = pkg;
+  selectedIds.clear(); // 패키지 선택 시 개별 상품 초기화
+  closePkgModal();
+  renderPackages();
+  renderCart();
+  calcBenefit();
+  toast('🎁 패키지가 선택되었습니다!');
+  // 카트 섹션으로 스크롤
+  document.getElementById('cartBox').scrollIntoView({behavior:'smooth', block:'center'});
+}
+
+function toggleProduct(id) {
+  // 패키지 선택 중에 개별 상품 선택 시 패키지 해제
+  if (selectedPackage) {
+    selectedPackage = null;
+    renderPackages();
+  }
+  if (selectedIds.has(id)) selectedIds.delete(id);
+  else selectedIds.add(id);
+  renderProducts();
+  renderCart();
+  calcBenefit();
+}
+
+// ============================================================
+// 장바구니 렌더 (패키지 모드 + 개별 모드)
+// ⭐ 다품목='N' 인 상품은 다품목 카운트에서 제외
+// ============================================================
+function renderCart() {
+  const box = document.getElementById('cartBox');
+
+  // 🎁 패키지 선택 모드
+  if (selectedPackage) {
+    const pkg = selectedPackage;
+    const orig = +pkg['정상가'] || 0;
+    const final = +pkg['최종혜택가'] || 0;
+    const items = (pkg['포함품목']||'').split('+').map(s=>s.trim()).filter(s=>s);
+    const models = (pkg['포함모델']||'').split('|').map(s=>s.trim()).filter(s=>s);
+
+    box.innerHTML = `
+      <div style="background:linear-gradient(135deg,#FFF8F8,#FFF);border:2px solid var(--red);border-radius:10px;padding:14px;position:relative">
+        <span style="position:absolute;top:-10px;left:14px;background:var(--red);color:#fff;padding:3px 12px;border-radius:14px;font-size:11px;font-weight:900">🎁 BEST 패키지 선택됨</span>
+        <div style="font-size:16px;font-weight:900;color:var(--navy);margin:6px 0 4px">${pkg['패키지명']}</div>
+        <div style="font-size:12px;color:var(--gray);margin-bottom:10px">${pkg['설명']||''}</div>
+        <div style="background:var(--bg);padding:10px;border-radius:8px;font-size:12px;line-height:1.7">
+          <strong style="color:var(--navy)">📦 포함 ${items.length}종</strong><br>
+          ${items.map((it,i) => `<div>• ${it}${models[i]?` <span style="color:#999;font-size:11px">(${models[i]})</span>`:''}</div>`).join('')}
+        </div>
+        <button onclick="clearPackage()" style="margin-top:10px;background:#fff;border:1.5px solid var(--border);padding:6px 12px;border-radius:6px;font-size:11px;color:var(--gray);cursor:pointer;font-family:inherit">패키지 해제</button>
+      </div>
+      <div class="cart-summary" style="margin-top:12px"><span>패키지 가격</span><strong>${fmt(orig||final)}</strong></div>
+    `;
+    return;
+  }
+
+  // 📦 개별 상품 선택 모드
+  const sel = products.filter(p => selectedIds.has(p['ID']));
+
+  if (!sel.length) {
+    box.innerHTML = `<div class="cart-empty">선택한 제품이 없습니다. 위에서 제품 또는 패키지를 선택해 주세요.</div>`;
+    return;
+  }
+
+  // 다품목 적용 가능 상품만 필터링
+  const multiEligible = sel.filter(p => String(p['다품목']||'Y').toUpperCase() !== 'N');
+  const lgItems = multiEligible.filter(p => p['브랜드'] === 'LG');
+  const ssItems = multiEligible.filter(p => p['브랜드'] === '삼성');
+  const lgUnique = getUniqueCategories(lgItems);
+  const ssUnique = getUniqueCategories(ssItems);
+  const subtotal = sel.reduce((a,p)=>a+(+p['판매가']||0), 0);
+
+  // 다품목 계산
+  const lgMulti = calcMultiDiscount('LG', lgUnique);
+  const ssMulti = calcMultiDiscount('삼성', ssUnique);
+  const totalMulti = lgMulti.amount + ssMulti.amount;
+
+  // 다품목 제외 안내
+  const excludedCount = sel.length - multiEligible.length;
+  let excludeNotice = '';
+  if (excludedCount > 0) {
+    excludeNotice = `<div style="background:#FEE2E2;border-left:3px solid #DC2626;padding:8px 10px;margin-top:8px;font-size:11px;color:#7F1D1D;border-radius:4px">
+      ⚠️ 선택 상품 중 ${excludedCount}개는 다품목 할인 제외 상품입니다.
+    </div>`;
+  }
+
+  // 동일품목 중복 안내
+  let dupNotice = '';
+  if (lgItems.length > lgUnique || ssItems.length > ssUnique) {
+    dupNotice = `<div style="background:#FEF3C7;border-left:3px solid #F59E0B;padding:8px 10px;margin-top:8px;font-size:11px;color:#78350F;border-radius:4px">
+      ℹ️ 동일 품목(예: TV 2대)은 다품목 할인 시 1품목으로 계산됩니다.
+    </div>`;
+  }
+
+  // 다품목 안내 배너
+  let multiMsg = '';
+  if (totalMulti > 0) {
+    let parts = [];
+    if (lgMulti.amount) parts.push(lgMulti.label);
+    if (ssMulti.amount) parts.push(ssMulti.label);
+    multiMsg = `<div class="multi-banner">🎁 ${parts.join(' + ')} <b>${fmt(totalMulti)}</b> 추가 할인!</div>`;
+  } else if (multiEligible.length > 0) {
+    const tips = [];
+    if (lgUnique > 0 && lgUnique < 2) tips.push(`LG 1품목 더하면 다품목 할인 시작!`);
+    if (ssUnique > 0 && ssUnique < 2) tips.push(`삼성 1품목 더하면 10만원 할인!`);
+    if (tips.length) multiMsg = `<div class="multi-banner" style="background:linear-gradient(135deg,#E0F2FE,#BAE6FD);border-color:#0EA5E9;color:#0C4A6E">💡 ${tips.join(' / ')}</div>`;
+  }
+
+  box.innerHTML = sel.map(p => {
+    const noMulti = String(p['다품목']||'Y').toUpperCase() === 'N';
+    return `
+    <div class="cart-item">
+      <div class="cart-item-info">
+        <div class="cart-item-name">${p['상품명']} ${noMulti?'<span style="background:#FEE2E2;color:#DC2626;font-size:10px;padding:2px 6px;border-radius:3px;margin-left:4px;font-weight:700">다품목제외</span>':''}</div>
+        <div class="cart-item-meta">${p['브랜드']} · ${p['카테고리']} · ${p['모델명']}</div>
+      </div>
+      <div class="cart-item-price">${fmt(p['판매가'])}</div>
+      <button class="cart-remove" onclick="event.stopPropagation();toggleProduct(${p['ID']})">✕</button>
+    </div>
+  `;}).join('') +
+  `<div class="cart-summary"><span>제품 합계 (${sel.length}대 / 다품목 ${lgUnique+ssUnique}품목)</span><strong>${fmt(subtotal)}</strong></div>` +
+  `<div style="background:linear-gradient(135deg,#FFF8E1,#FFEFC4);border:1.5px solid var(--gold);border-radius:8px;padding:10px 12px;margin-top:8px;font-size:12px;font-weight:700;color:#8B5A00">🎉 오픈혜택 10% <b style="color:var(--red)">${fmt(Math.floor(subtotal*0.1))}</b> 자동 적용!</div>` +
+  excludeNotice +
+  dupNotice +
+  multiMsg;
+}
+
+function clearPackage() {
+  selectedPackage = null;
+  renderPackages();
+  renderCart();
+  calcBenefit();
+  toast('패키지가 해제되었습니다');
+}
+
+// ============================================================
+// 다품목 할인 조회 (새 정책 - 카테고리 종류 수 기준)
+// ⭐ 동일 품목(카테고리) 중복 카운트 안 함
+// ⭐ LG: '품목당' 정액 / 삼성: '총액' 정액 / 13품목+ '총액초과'
+// ============================================================
+function getUniqueCategories(items) {
+  // 같은 카테고리는 1로 카운트
+  return new Set(items.map(p => p['카테고리'])).size;
+}
+
+function calcMultiDiscount(brand, uniqueCount) {
+  if (!uniqueCount || uniqueCount < 2) return { amount: 0, label: '' };
+
+  const rules = multiDiscounts.filter(m => m['브랜드'] === brand);
+  if (!rules.length) return { amount: 0, label: '' };
+
+  if (brand === 'LG') {
+    // 품목당 방식: 가장 높은 단가 찾기
+    const perItemRules = rules
+      .filter(r => r['계산방식'] === '품목당' && +r['품목수'] <= uniqueCount)
+      .sort((a, b) => +b['품목수'] - +a['품목수']);
+    if (!perItemRules.length) return { amount: 0, label: '' };
+    const top = perItemRules[0];
+    const perItem = +top['할인값'];
+    return {
+      amount: perItem * uniqueCount,
+      label: `LG ${uniqueCount}품목 × ${(perItem/10000).toFixed(0)}만원`
+    };
+  }
+
+  if (brand === '삼성') {
+    // 총액 방식: 정확한 품목수 매칭
+    const exactRule = rules.find(r => r['계산방식'] === '총액' && +r['품목수'] === uniqueCount);
+    if (exactRule) {
+      return {
+        amount: +exactRule['할인값'],
+        label: `삼성 ${uniqueCount}품목`
+      };
+    }
+    // 13품목 이상 → 12품목 + (초과 × 추가단가)
+    if (uniqueCount > 12) {
+      const baseRule = rules.find(r => r['계산방식'] === '총액' && +r['품목수'] === 12);
+      const extraRule = rules.find(r => r['계산방식'] === '총액초과');
+      if (baseRule && extraRule) {
+        const baseAmt = +baseRule['할인값'];
+        const extraPerItem = +extraRule['할인값'];
+        const overCount = uniqueCount - 12;
+        return {
+          amount: baseAmt + (extraPerItem * overCount),
+          label: `삼성 12품목 + ${overCount}품목 추가`
+        };
+      }
+    }
+  }
+  return { amount: 0, label: '' };
+}
+
+// ============================================================
+// 캐시백 자동 조회 (구매금액에 맞는 최고 캐시백)
+// ============================================================
+function getCashback(amount) {
+  const candidates = discounts
+    .filter(d => d['유형'] === '캐시백' && +d['조건금액'] <= amount)
+    .sort((a,b) => +b['조건금액'] - +a['조건금액']);
+  return candidates[0] || null;
+}
+
+// ============================================================
+// 카드 선택
+// ============================================================
+function renderCards() {
+  const cards = discounts.filter(d => d['유형'] === '카드');
+  if (cards.length && !selectedCardId) selectedCardId = cards[0]['ID'];
+  document.getElementById('cardList').innerHTML = cards.map(c => `
+    <label class="disc-item ${selectedCardId==c['ID']?'checked':''}">
+      <input type="radio" name="card" value="${c['ID']}" ${selectedCardId==c['ID']?'checked':''} onchange="selectCard(${c['ID']})">
+      <div class="disc-info">
+        <div class="disc-label">${c['이름']}</div>
+        <div class="disc-sub">${c['비고']||'발급 필수'}</div>
+      </div>
+    </label>
+  `).join('');
+}
+
+function selectCard(id) {
+  selectedCardId = id;
+  renderCards();
+  calcBenefit();
+}
+
+// ============================================================
+// 추가 옵션 (IPTV)
+// ============================================================
+function renderExtras() {
+  const iptv = discounts.filter(d => d['유형'] === 'IPTV');
+  document.getElementById('extraList').innerHTML = iptv.map(e => `
+    <label class="disc-item ${selectedExtras.has(e['ID'])?'checked':''}">
+      <input type="checkbox" value="${e['ID']}" ${selectedExtras.has(e['ID'])?'checked':''} onchange="toggleExtra(${e['ID']})">
+      <div class="disc-info">
+        <div class="disc-label">📡 ${e['이름']}</div>
+        <div class="disc-sub">${e['비고']||''}</div>
+      </div>
+      <div class="disc-amount">${fmt(+e['할인값'])}</div>
+    </label>
+  `).join('');
+}
+
+function toggleExtra(id) {
+  if (selectedExtras.has(id)) selectedExtras.delete(id);
+  else selectedExtras.add(id);
+  renderExtras();
+  calcBenefit();
+}
+
+// ============================================================
+// 신청 유형 라디오 → 특별 할인 자동 반영 (1개만 선택됨)
+// ============================================================
+function updateExtras() {
+  document.querySelectorAll('.check-item').forEach(item => {
+    const radio = item.querySelector('input[type="radio"]');
+    if (radio) item.classList.toggle('checked', radio.checked);
+  });
+  calcBenefit();
+}
+
+// ============================================================
+// 💰 핵심: 혜택 계산 (패키지 모드 + 개별 모드)
+// ============================================================
+function calcBenefit() {
+  // 🎁 패키지 선택 모드 - 사장님이 입력한 가격 그대로 사용
+  if (selectedPackage) {
+    const pkg = selectedPackage;
+    const subtotal = +pkg['정상가'] || 0;
+    const final = +pkg['최종혜택가'] || 0;
+    const totalDisc = subtotal - final;
+
+    document.getElementById('bOrig').textContent = subtotal ? '정상가 ' + fmt(subtotal) : '';
+    document.getElementById('bFinal').textContent = fmt(final);
+    document.getElementById('bSavingWrap').innerHTML = totalDisc > 0
+      ? `<div class="benefit-saving">💸 ${fmt(totalDisc)} 절약!</div>`
+      : '';
+
+    const card = discounts.find(d => d['ID'] == selectedCardId);
+    document.getElementById('bCardInfo').innerHTML = card
+      ? `<div class="card-info">💳 결제: <b>${card['이름']}</b>${(card['비고']||'').includes('무이자') ? ' (12개월 무이자 할부 가능)' : ''}</div>`
+      : '';
+
+    const items = (pkg['포함품목']||'').split('+').map(s=>s.trim()).filter(s=>s);
+    let detail = `<div class="benefit-detail-row"><span>🎁 ${pkg['패키지명']}</span><span>${fmt(final)}</span></div>`;
+    detail += `<div class="benefit-detail-row" style="font-size:11px;color:rgba(255,255,255,0.7)"><span colspan="2">└ ${items.length}종 패키지 / ${pkg['브랜드']||''}</span></div>`;
+    if (totalDisc > 0) detail += `<div class="benefit-detail-row disc"><span>💰 패키지 할인</span><span>-${fmt(totalDisc)}</span></div>`;
+    detail += `<div class="benefit-detail-row" style="font-weight:900;color:var(--gold);font-size:14px;margin-top:6px;padding-top:8px;border-top:1px solid rgba(255,255,255,0.3) !important"><span>🏷️ 최종 혜택가</span><span>${fmt(final)}</span></div>`;
+    document.getElementById('bDetail').innerHTML = detail;
+    return;
+  }
+
+  // 📦 개별 상품 모드 (기존 로직)
+  const sel = products.filter(p => selectedIds.has(p['ID']));
+  const subtotal = sel.reduce((a,p)=>a+(+p['판매가']||0), 0);
+
+  // 🎉 오픈혜택 자동 적용 (정상가 기준 10%)
+  const openBenefit = Math.floor(subtotal * 0.1);
+
+  // 1. 캐시백 자동 적용
+  const cashback = getCashback(subtotal);
+  const cashbackAmt = cashback ? +cashback['할인값'] : 0;
+
+  // 2. IPTV 추가 옵션
+  let iptvAmt = 0;
+  let iptvLabel = '';
+  selectedExtras.forEach(id => {
+    const d = discounts.find(x => x['ID'] == id);
+    if (d) { iptvAmt += +d['할인값']; iptvLabel = d['이름']; }
+  });
+
+  // 3. 다품목 할인 (카테고리 종류 수 기준 + 다품목='N' 제외)
+  const multiEligible = sel.filter(p => String(p['다품목']||'Y').toUpperCase() !== 'N');
+  const lgItems = multiEligible.filter(p => p['브랜드'] === 'LG');
+  const ssItems = multiEligible.filter(p => p['브랜드'] === '삼성');
+  const lgUnique = getUniqueCategories(lgItems);
+  const ssUnique = getUniqueCategories(ssItems);
+  const lgMulti = calcMultiDiscount('LG', lgUnique);
+  const ssMulti = calcMultiDiscount('삼성', ssUnique);
+  const multiAmt = lgMulti.amount + ssMulti.amount;
+
+  // 4. 신청유형별 특별할인 (라디오 1개만)
+  let specialAmt = 0;
+  let specialLabels = [];
+  document.querySelectorAll('input[name="applyType"]:checked').forEach(cb => {
+    const extra = cb.dataset.extra;
+    if (!extra) return;
+    const sp = discounts.find(d => d['유형']==='특별' && (d['이름']||'').includes(extra));
+    if (sp) { specialAmt += +sp['할인값']; specialLabels.push(sp['이름']); }
+  });
+
+  const totalDisc = openBenefit + cashbackAmt + iptvAmt + multiAmt + specialAmt;
+  const final = Math.max(0, subtotal - totalDisc);
+
+  // 화면 표시
+  document.getElementById('bOrig').textContent = subtotal ? '정상가 ' + fmt(subtotal) : '';
+  document.getElementById('bFinal').textContent = fmt(final);
+
+  document.getElementById('bSavingWrap').innerHTML = totalDisc > 0
+    ? `<div class="benefit-saving">💸 ${fmt(totalDisc)} 절약!</div>`
+    : '';
+
+  // 카드 정보
+  const card = discounts.find(d => d['ID'] == selectedCardId);
+  document.getElementById('bCardInfo').innerHTML = card
+    ? `<div class="card-info">💳 결제: <b>${card['이름']}</b>${(card['비고']||'').includes('무이자') ? ' (12개월 무이자 할부 가능)' : ''}</div>`
+    : '';
+
+  // 상세
+  let detail = '';
+  detail += `<div class="benefit-detail-row"><span>제품 합계 (${sel.length}대)</span><span>${fmt(subtotal)}</span></div>`;
+  if (openBenefit > 0) detail += `<div class="benefit-detail-row disc"><span>🎉 오픈혜택 (10%)</span><span>-${fmt(openBenefit)}</span></div>`;
+  if (cashback) detail += `<div class="benefit-detail-row disc"><span>🔥 ${cashback['이름']}</span><span>-${fmt(cashbackAmt)}</span></div>`;
+  if (iptvAmt) detail += `<div class="benefit-detail-row disc"><span>📡 ${iptvLabel}</span><span>-${fmt(iptvAmt)}</span></div>`;
+  if (lgMulti.amount) detail += `<div class="benefit-detail-row disc"><span>🎁 ${lgMulti.label}</span><span>-${fmt(lgMulti.amount)}</span></div>`;
+  if (ssMulti.amount) detail += `<div class="benefit-detail-row disc"><span>🎁 ${ssMulti.label}</span><span>-${fmt(ssMulti.amount)}</span></div>`;
+  specialLabels.forEach(label => {
+    const sp = discounts.find(d => d['이름'] === label);
+    if (sp) detail += `<div class="benefit-detail-row disc"><span>✨ ${label}</span><span>-${fmt(+sp['할인값'])}</span></div>`;
+  });
+  detail += `<div class="benefit-detail-row" style="font-weight:900;color:var(--gold);font-size:14px;margin-top:6px;padding-top:8px;border-top:1px solid rgba(255,255,255,0.3) !important"><span>🏷️ 최종 혜택가</span><span>${fmt(final)}</span></div>`;
+
+  document.getElementById('bDetail').innerHTML = detail;
+}
+
+function toggleDetail() {
+  const d = document.getElementById('bDetail');
+  const btn = document.getElementById('detailBtn');
+  d.classList.toggle('open');
+  btn.textContent = d.classList.contains('open') ? '▲ 혜택 상세 닫기' : '▼ 혜택 상세 보기';
+}
+
+// ============================================================
+// 신청서 제출
+// ============================================================
+async function submitForm() {
+  const name = document.getElementById('fName').value.trim();
+  const phone = document.getElementById('fPhone').value.trim();
+  const addr = document.getElementById('fAddr').value.trim();
+  const typeRadio = document.querySelector('input[name="applyType"]:checked');
+  const type = typeRadio ? typeRadio.value : '';
+
+  if (!name) return toast('⚠️ 고객명을 입력해 주세요');
+  if (!phone) return toast('⚠️ 연락처를 입력해 주세요');
+  if (!addr) return toast('⚠️ 배송지 주소를 입력해 주세요');
+  if (!type) return toast('⚠️ 신청 유형을 선택해 주세요');
+  if (!selectedPackage && selectedIds.size === 0) return toast('⚠️ 패키지 또는 제품을 선택해 주세요');
+  if (!selectedCardId) return toast('⚠️ 발급 희망 제휴카드를 선택해 주세요');
+
+  let payload;
+  const card = discounts.find(d => d['ID'] == selectedCardId);
+
+  // 🎁 패키지 모드
+  if (selectedPackage) {
+    const pkg = selectedPackage;
+    const subtotal = +pkg['정상가'] || 0;
+    const final = +pkg['최종혜택가'] || 0;
+    const items = (pkg['포함품목']||'').split('+').map(s=>s.trim()).filter(s=>s);
+    const models = (pkg['포함모델']||'').split('|').map(s=>s.trim()).filter(s=>s);
+    payload = {
+      name, phone, address: addr,
+      preferDate: document.getElementById('fDate').value || '미정',
+      applyType: type,
+      products: `[패키지] ${pkg['패키지명']} (${items.length}종: ${items.join(', ')})${models.length?' / 모델: '+models.join(', '):''}`,
+      subtotal,
+      cardName: card ? card['이름'] : '',
+      cardback: 0,
+      iptv: '',
+      iptvAmt: 0,
+      extraDiscount: '패키지 일괄가',
+      finalPrice: final,
+      memo: document.getElementById('fMemo').value || ''
+    };
+  } else {
+    // 📦 개별 모드
+    const sel = products.filter(p => selectedIds.has(p['ID']));
+    const subtotal = sel.reduce((a,p)=>a+(+p['판매가']||0), 0);
+    const openBenefit = Math.floor(subtotal * 0.1); // 🎉 오픈혜택 10%
+    const cashback = getCashback(subtotal);
+    const cashbackAmt = cashback ? +cashback['할인값'] : 0;
+
+    let iptvAmt = 0, iptvLabel = '';
+    selectedExtras.forEach(id => {
+      const d = discounts.find(x => x['ID'] == id);
+      if (d) { iptvAmt += +d['할인값']; iptvLabel = d['이름']; }
+    });
+
+    const multiEligible = sel.filter(p => String(p['다품목']||'Y').toUpperCase() !== 'N');
+    const lgItems = multiEligible.filter(p => p['브랜드'] === 'LG');
+    const ssItems = multiEligible.filter(p => p['브랜드'] === '삼성');
+    const lgUnique = getUniqueCategories(lgItems);
+    const ssUnique = getUniqueCategories(ssItems);
+    const lgMulti = calcMultiDiscount('LG', lgUnique);
+    const ssMulti = calcMultiDiscount('삼성', ssUnique);
+    const multiAmt = lgMulti.amount + ssMulti.amount;
+    let multiLabels = [];
+    if (lgMulti.amount) multiLabels.push(`${lgMulti.label} = ${fmt(lgMulti.amount)}`);
+    if (ssMulti.amount) multiLabels.push(`${ssMulti.label} = ${fmt(ssMulti.amount)}`);
+
+    let specialAmt = 0, specialLabels = [];
+    document.querySelectorAll('input[name="applyType"]:checked').forEach(cb => {
+      const extra = cb.dataset.extra;
+      if (!extra) return;
+      const sp = discounts.find(d => d['유형']==='특별' && (d['이름']||'').includes(extra));
+      if (sp) { specialAmt += +sp['할인값']; specialLabels.push(sp['이름']); }
+    });
+
+    const final = Math.max(0, subtotal - openBenefit - cashbackAmt - iptvAmt - multiAmt - specialAmt);
+
+    payload = {
+      name, phone, address: addr,
+      preferDate: document.getElementById('fDate').value || '미정',
+      applyType: type,
+      products: sel.map(p=>`${p['브랜드']} ${p['상품명']}(${p['모델명']})`).join(' / '),
+      subtotal,
+      cardName: card ? card['이름'] : '',
+      cardback: cashbackAmt + multiAmt,
+      iptv: iptvLabel,
+      iptvAmt,
+      extraDiscount: [`오픈혜택 10% (${fmt(openBenefit)})`, ...multiLabels, ...specialLabels].join(' + '),
+      finalPrice: final,
+      memo: document.getElementById('fMemo').value || ''
+    };
+  }
+
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.textContent = '⏳ 전송 중...';
+
+  try {
+    await fetch(API_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: {'Content-Type':'text/plain;charset=utf-8'},
+      body: JSON.stringify(payload)
+    });
+
+    document.getElementById('formBox').style.display = 'none';
+    const s = document.getElementById('success');
+    s.classList.add('show');
+    document.getElementById('successMsg').innerHTML =
+      `<b>${name}</b> 고객님,<br>신청해 주셔서 감사합니다!<br><br>` +
+      `담당자가 <b>${phone}</b>으로<br>빠르게 연락드리겠습니다.`;
+    s.scrollIntoView({behavior:'smooth', block:'center'});
+  } catch (err) {
+    toast('⚠️ 전송 실패. 잠시 후 다시 시도해 주세요.');
+    btn.disabled = false;
+    btn.textContent = '📋 상담 신청하기 (무료)';
+  }
+}
+
+// 초기 로드
+loadData();
+
+// 🔍 디버그용 (개발자도구 Console에서 'debugData()' 입력하면 데이터 확인 가능)
+window.debugData = function() {
+  console.log('===== 시트 데이터 디버그 =====');
+  console.log('상품 수:', products.length);
+  console.log('첫 상품 키들:', products[0] ? Object.keys(products[0]) : 'N/A');
+  console.log('첫 상품 데이터:', products[0]);
+  console.log('카테고리 종류:', [...new Set(products.map(p => p['카테고리']))]);
+  console.log('브랜드 종류:', [...new Set(products.map(p => p['브랜드']))]);
+  console.log('====================================');
+};
+</script>
+</body>
+</html>
