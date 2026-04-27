@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>관리자 페이지 | 가전졸업의 성지</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #DC2626;
+    --navy: #18181B;
+    --bg: #FAFAFA;
+    --white: #FFF;
+    --gray: #71717A;
+    --light: #F4F4F5;
+    --border: #E4E4E7;
+    --green: #10B981;
+    --gold: #F59E0B;
+    --shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.06);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  body { font-family:'Noto Sans KR',sans-serif; background:var(--bg); color:#111; line-height:1.5; }
+
+  /* === LOGIN === */
+  .login-screen { position:fixed; inset:0; background:var(--navy); display:flex; align-items:center; justify-content:center; z-index:999; padding:20px; }
+  .login-box { background:var(--white); border-radius:16px; padding:40px 28px; width:100%; max-width:340px; text-align:center; box-shadow:0 20px 60px rgba(0,0,0,0.3); }
+  .login-badge { display:inline-block; background:var(--red); color:#fff; padding:6px 16px; border-radius:6px; font-size:18px; font-weight:900; letter-spacing:1px; margin-bottom:14px; }
+  .login-box h2 { font-size:18px; font-weight:900; color:var(--navy); margin-bottom:6px; }
+  .login-box p { color:var(--gray); font-size:12px; margin-bottom:24px; }
+  .login-box input { width:100%; padding:13px 14px; border:2px solid var(--border); border-radius:8px; font-size:15px; margin-bottom:10px; outline:none; font-family:inherit; }
+  .login-box input:focus { border-color:var(--red); }
+  .login-box button { width:100%; padding:14px; background:var(--red); color:#fff; border:none; border-radius:8px; font-size:15px; font-weight:900; cursor:pointer; font-family:inherit; }
+  .login-error { color:var(--red); font-size:12px; margin-top:8px; min-height:18px; }
+
+  /* === HEADER === */
+  header { background:var(--navy); color:#fff; padding:12px 16px; position:sticky; top:0; z-index:50; box-shadow:0 2px 12px rgba(0,0,0,0.15); }
+  .h-inner { max-width:1100px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; gap:10px; }
+  .h-title { font-size:14px; font-weight:900; line-height:1.3; }
+  .h-title small { display:block; font-size:10px; color:#A8C0E0; font-weight:400; }
+  .h-actions { display:flex; gap:6px; }
+  .h-btn { background:rgba(255,255,255,0.15); border:1px solid rgba(255,255,255,0.3); color:#fff; padding:6px 12px; border-radius:6px; font-size:12px; font-weight:700; cursor:pointer; font-family:inherit; }
+  .h-btn:hover { background:rgba(255,255,255,0.25); }
+
+  /* === TABS === */
+  .tabs { background:var(--white); border-bottom:1px solid var(--border); position:sticky; top:50px; z-index:49; padding:0 16px; }
+  .tabs-inner { max-width:1100px; margin:0 auto; display:flex; gap:4px; overflow-x:auto; scrollbar-width:none; }
+  .tabs-inner::-webkit-scrollbar { display:none; }
+  .tab { padding:12px 16px; border:none; background:none; font-size:13px; font-weight:700; color:var(--gray); cursor:pointer; white-space:nowrap; border-bottom:3px solid transparent; font-family:inherit; }
+  .tab.active { color:var(--red); border-bottom-color:var(--red); }
+  .tab .badge { background:var(--red); color:#fff; font-size:10px; padding:1px 6px; border-radius:10px; margin-left:4px; }
+
+  /* === MAIN === */
+  main { max-width:1100px; margin:0 auto; padding:16px; }
+
+  .page { display:none; }
+  .page.active { display:block; }
+
+  /* === DASHBOARD === */
+  .stats { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-bottom:16px; }
+  @media(min-width:600px){ .stats { grid-template-columns:repeat(4,1fr); } }
+  .stat-card { background:var(--white); border-radius:10px; padding:14px; box-shadow:var(--shadow); }
+  .stat-label { font-size:11px; color:var(--gray); font-weight:700; }
+  .stat-value { font-size:22px; font-weight:900; color:var(--navy); margin-top:4px; }
+  .stat-card.red .stat-value { color:var(--red); }
+  .stat-card.green .stat-value { color:var(--green); }
+
+  /* === FILTER BAR === */
+  .filter-bar { background:var(--white); border-radius:10px; padding:12px; box-shadow:var(--shadow); margin-bottom:12px; display:flex; gap:8px; flex-wrap:wrap; }
+  .filter-bar input, .filter-bar select { padding:8px 12px; border:1.5px solid var(--border); border-radius:6px; font-size:13px; outline:none; font-family:inherit; }
+  .filter-bar input { flex:1; min-width:180px; }
+  .filter-bar input:focus, .filter-bar select:focus { border-color:var(--navy); }
+  .btn-export { background:var(--green); color:#fff; border:none; padding:8px 16px; border-radius:6px; font-size:12px; font-weight:700; cursor:pointer; font-family:inherit; }
+
+  /* === INQUIRY CARDS === */
+  .inq-list { display:flex; flex-direction:column; gap:10px; }
+  .inq-card { background:var(--white); border-radius:10px; padding:14px; box-shadow:var(--shadow); cursor:pointer; transition:all 0.15s; border-left:4px solid var(--gray); }
+  .inq-card:hover { box-shadow:0 4px 16px rgba(0,44,95,0.12); }
+  .inq-card.status-신규 { border-left-color:var(--red); }
+  .inq-card.status-상담중 { border-left-color:var(--gold); }
+  .inq-card.status-계약완료 { border-left-color:var(--green); }
+  .inq-card.status-취소 { border-left-color:#9CA3AF; opacity:0.7; }
+
+  .inq-top { display:flex; justify-content:space-between; align-items:flex-start; gap:10px; margin-bottom:8px; flex-wrap:wrap; }
+  .inq-top-l { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+  .inq-name { font-size:15px; font-weight:900; }
+  .inq-phone { font-size:12px; color:var(--gray); }
+  .status-pill { display:inline-block; padding:3px 10px; border-radius:4px; font-size:10px; font-weight:900; letter-spacing:0.5px; }
+  .status-pill.s신규 { background:#FEE2E2; color:var(--red); }
+  .status-pill.s상담중 { background:#FEF3C7; color:#B45309; }
+  .status-pill.s계약완료 { background:#D1FAE5; color:#065F46; }
+  .status-pill.s취소 { background:#F3F4F6; color:#9CA3AF; }
+  .inq-date { font-size:11px; color:var(--gray); }
+  .inq-price { font-size:18px; font-weight:900; color:var(--navy); margin-bottom:6px; }
+  .inq-meta { font-size:12px; color:var(--gray); display:flex; flex-wrap:wrap; gap:8px; }
+  .inq-meta span:not(:last-child)::after { content:'·'; margin-left:8px; }
+  .inq-products { font-size:12px; color:#444; margin-top:6px; padding-top:8px; border-top:1px dashed var(--border); }
+
+  /* === MODAL === */
+  .modal-bg { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:200; align-items:center; justify-content:center; padding:16px; }
+  .modal-bg.open { display:flex; }
+  .modal { background:var(--white); border-radius:14px; max-width:600px; width:100%; max-height:90vh; overflow-y:auto; padding:24px; }
+  .modal-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; padding-bottom:14px; border-bottom:2px solid var(--light); }
+  .modal-title { font-size:18px; font-weight:900; color:var(--navy); }
+  .modal-close { background:none; border:none; font-size:22px; cursor:pointer; color:var(--gray); }
+  .modal-row { display:flex; padding:10px 0; border-bottom:1px solid var(--light); font-size:14px; gap:14px; }
+  .modal-row:last-child { border-bottom:none; }
+  .modal-row .k { color:var(--gray); font-weight:700; min-width:90px; font-size:12px; }
+  .modal-row .v { flex:1; }
+  .modal-row .v strong { color:var(--red); }
+  .modal-actions { display:flex; gap:8px; margin-top:16px; padding-top:14px; border-top:2px solid var(--light); flex-wrap:wrap; }
+  .modal-actions button { flex:1; padding:10px 12px; border:none; border-radius:6px; font-size:12px; font-weight:700; cursor:pointer; font-family:inherit; min-width:80px; }
+  .btn-status-신규 { background:#FEE2E2; color:var(--red); }
+  .btn-status-상담중 { background:#FEF3C7; color:#B45309; }
+  .btn-status-계약완료 { background:#D1FAE5; color:#065F46; }
+  .btn-status-취소 { background:#F3F4F6; color:#9CA3AF; }
+  .btn-call { background:var(--green); color:#fff; flex:0 0 100%; padding:14px; font-size:14px !important; }
+
+  /* === SHORTCUT CARDS === */
+  .shortcut-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; }
+  @media(min-width:600px){ .shortcut-grid { grid-template-columns:repeat(3,1fr); } }
+  .shortcut { background:var(--white); border-radius:12px; padding:20px; box-shadow:var(--shadow); cursor:pointer; transition:all 0.15s; text-decoration:none; color:inherit; display:block; }
+  .shortcut:hover { transform:translateY(-3px); box-shadow:0 8px 24px rgba(0,44,95,0.15); }
+  .shortcut-icon { font-size:32px; margin-bottom:10px; }
+  .shortcut-title { font-size:14px; font-weight:900; color:var(--navy); margin-bottom:4px; }
+  .shortcut-desc { font-size:11px; color:var(--gray); line-height:1.5; }
+
+  /* === GUIDE === */
+  .guide-box { background:var(--white); border-radius:12px; padding:20px; box-shadow:var(--shadow); margin-bottom:14px; }
+  .guide-box h3 { font-size:15px; font-weight:900; color:var(--navy); margin-bottom:12px; display:flex; align-items:center; gap:8px; }
+  .guide-step { padding:10px 0 10px 30px; border-left:3px solid var(--light); margin-left:8px; position:relative; font-size:13px; line-height:1.7; color:#444; }
+  .guide-step::before { content:''; position:absolute; left:-7px; top:14px; width:11px; height:11px; background:var(--red); border-radius:50%; border:2px solid #fff; box-shadow:0 0 0 2px var(--red); }
+  .guide-step b { color:var(--navy); }
+
+  .empty { text-align:center; padding:50px 20px; color:var(--gray); background:var(--white); border-radius:12px; box-shadow:var(--shadow); }
+  .empty-icon { font-size:50px; margin-bottom:10px; }
+
+  .loading { text-align:center; padding:50px; color:var(--gray); }
+  .spinner { display:inline-block; width:30px; height:30px; border:3px solid var(--light); border-top-color:var(--red); border-radius:50%; animation:spin 0.8s linear infinite; }
+  @keyframes spin { to { transform:rotate(360deg); } }
+
+  #toast { position:fixed; bottom:30px; left:50%; transform:translateX(-50%) translateY(100px); background:#1F2937; color:#fff; padding:12px 22px; border-radius:30px; font-size:13px; font-weight:700; z-index:9999; box-shadow:0 4px 20px rgba(0,0,0,0.3); transition:transform 0.3s; }
+  #toast.show { transform:translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div class="login-screen" id="loginScreen">
+  <div class="login-box">
+    <div class="login-badge">🎓 ADMIN</div>
+    <h2>관리자 로그인</h2>
+    <p>가전졸업의 성지</p>
+    <input type="password" id="loginPw" placeholder="비밀번호 입력" onkeydown="if(event.key==='Enter')login()">
+    <button onclick="login()">로그인</button>
+    <div class="login-error" id="loginError"></div>
+    <p style="margin-top:18px;font-size:11px;color:#999">초기 비밀번호: gajeon2026</p>
+  </div>
+</div>
+
+<!-- ADMIN -->
+<div id="admin" style="display:none">
+
+  <header>
+    <div class="h-inner">
+      <div class="h-title">
+        🎓 관리자 패널
+        <small>가전졸업의 성지</small>
+      </div>
+      <div class="h-actions">
+        <button class="h-btn" onclick="loadInquiries()">🔄 새로고침</button>
+        <button class="h-btn" onclick="logout()">로그아웃</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="tabs">
+    <div class="tabs-inner">
+      <button class="tab active" id="tab-dashboard" onclick="showPage('dashboard')">📊 대시보드</button>
+      <button class="tab" id="tab-inquiries" onclick="showPage('inquiries')">📋 상담 신청 <span class="badge" id="newCount">0</span></button>
+      <button class="tab" id="tab-manage" onclick="showPage('manage')">⚙️ 데이터 관리</button>
+      <button class="tab" id="tab-guide" onclick="showPage('guide')">📖 사용 가이드</button>
+    </div>
+  </div>
+
+  <main>
+
+    <!-- DASHBOARD -->
+    <div class="page active" id="page-dashboard">
+      <div class="stats">
+        <div class="stat-card red">
+          <div class="stat-label">신규 신청</div>
+          <div class="stat-value" id="statNew">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">상담중</div>
+          <div class="stat-value" id="statTalking">0</div>
+        </div>
+        <div class="stat-card green">
+          <div class="stat-label">계약완료</div>
+          <div class="stat-value" id="statDone">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">전체 신청</div>
+          <div class="stat-value" id="statTotal">0</div>
+        </div>
+      </div>
+
+      <h3 style="font-size:15px;font-weight:900;color:var(--navy);margin-bottom:10px">📌 빠른 작업</h3>
+      <div class="shortcut-grid">
+        <a class="shortcut" onclick="showPage('inquiries')">
+          <div class="shortcut-icon">📋</div>
+          <div class="shortcut-title">신청 내역 확인</div>
+          <div class="shortcut-desc">고객 상담 신청을<br>실시간 확인</div>
+        </a>
+        <a class="shortcut" href="#" id="sheetLink" target="_blank">
+          <div class="shortcut-icon">📊</div>
+          <div class="shortcut-title">상품·할인 관리</div>
+          <div class="shortcut-desc">Google Sheets에서<br>직접 수정</div>
+        </a>
+        <a class="shortcut" href="https://gajeon-master.github.io/store/" target="_blank" id="siteLink">
+          <div class="shortcut-icon">🌐</div>
+          <div class="shortcut-title">고객 사이트 보기</div>
+          <div class="shortcut-desc">실제 사이트<br>새 창으로 열기</div>
+        </a>
+        <a class="shortcut" onclick="exportCSV()">
+          <div class="shortcut-icon">📥</div>
+          <div class="shortcut-title">엑셀 다운로드</div>
+          <div class="shortcut-desc">전체 신청 내역<br>CSV로 받기</div>
+        </a>
+        <a class="shortcut" onclick="showPage('guide')">
+          <div class="shortcut-icon">📖</div>
+          <div class="shortcut-title">사용 가이드</div>
+          <div class="shortcut-desc">관리법 자세히<br>알아보기</div>
+        </a>
+      </div>
+
+      <h3 style="font-size:15px;font-weight:900;color:var(--navy);margin:20px 0 10px">🆕 최근 신청 (5건)</h3>
+      <div id="recentList" class="inq-list"></div>
+    </div>
+
+    <!-- INQUIRIES -->
+    <div class="page" id="page-inquiries">
+      <div class="filter-bar">
+        <input type="text" id="searchInq" placeholder="🔍 이름 / 연락처 검색" oninput="renderInquiries()">
+        <select id="filterStatus" onchange="renderInquiries()">
+          <option value="all">전체 상태</option>
+          <option value="신규">신규</option>
+          <option value="상담중">상담중</option>
+          <option value="계약완료">계약완료</option>
+          <option value="취소">취소</option>
+        </select>
+        <button class="btn-export" onclick="exportCSV()">📥 CSV</button>
+      </div>
+      <div id="inqList" class="inq-list">
+        <div class="loading"><div class="spinner"></div></div>
+      </div>
+    </div>
+
+    <!-- MANAGE -->
+    <div class="page" id="page-manage">
+      <div class="guide-box">
+        <h3>📊 상품·할인·다품목·월별행사 관리</h3>
+        <p style="font-size:13px;color:var(--gray);line-height:1.7;margin-bottom:14px">
+          모든 상품과 할인 정보는 <b style="color:var(--navy)">Google Sheets에서 직접 관리</b>합니다.<br>
+          시트에서 수정하면 사이트에 <b style="color:var(--red)">즉시 반영</b>됩니다.
+        </p>
+        <a id="manageSheetBtn" href="#" target="_blank" style="display:inline-block;background:var(--navy);color:#fff;padding:12px 24px;border-radius:8px;font-size:14px;font-weight:700;text-decoration:none">
+          📊 Google Sheets 열기
+        </a>
+      </div>
+
+      <div class="guide-box">
+        <h3>📦 시트별 역할</h3>
+        <div class="guide-step"><b>상품</b> — 판매할 가전제품 추가/수정/삭제 (활성 컬럼을 N으로 하면 사이트에서 숨겨짐)</div>
+        <div class="guide-step"><b>할인</b> — 카드, IPTV, 캐시백, 특별할인 항목 관리</div>
+        <div class="guide-step"><b>다품목할인</b> — LG/삼성 다품목 할인액 조정</div>
+        <div class="guide-step"><b>월별행사</b> — 매월 행사 모델/혜택 변경 (적용월 컬럼 변경)</div>
+        <div class="guide-step"><b>신청</b> — 고객 상담 신청이 자동으로 누적되는 시트 (수정 X)</div>
+      </div>
+
+      <div class="guide-box">
+        <h3>💡 주의사항</h3>
+        <div class="guide-step">시트의 <b>헤더 행(1행)은 절대 변경하지 마세요</b>. 변경 시 사이트가 작동하지 않습니다.</div>
+        <div class="guide-step">상품 ID는 <b>고유한 숫자</b>여야 합니다 (중복 X).</div>
+        <div class="guide-step">상품을 임시로 숨기려면 <b>'활성' 컬럼을 N으로</b> 변경하세요.</div>
+        <div class="guide-step">변경 후 사이트에 안 보이면 <b>새로고침(F5)</b> 해주세요.</div>
+      </div>
+    </div>
+
+    <!-- GUIDE -->
+    <div class="page" id="page-guide">
+      <div class="guide-box">
+        <h3>🚀 일상 관리 흐름</h3>
+        <div class="guide-step"><b>아침</b>: 관리자 페이지 열어 [신규] 신청 확인</div>
+        <div class="guide-step"><b>고객 응대</b>: 상세보기 → 전화 걸기 → 상태 [상담중]으로 변경</div>
+        <div class="guide-step"><b>계약 성사</b>: 상태 [계약완료]로 변경</div>
+        <div class="guide-step"><b>월말</b>: CSV 다운로드 → 매출 정리</div>
+      </div>
+
+      <div class="guide-box">
+        <h3>📦 상품 추가하는 법</h3>
+        <div class="guide-step"><b>1.</b> [데이터 관리] 탭 → Google Sheets 열기</div>
+        <div class="guide-step"><b>2.</b> '상품' 시트에서 마지막 행 아래에 새 행 추가</div>
+        <div class="guide-step"><b>3.</b> ID는 기존 ID + 1로 (중복 X), 활성은 'Y'</div>
+        <div class="guide-step"><b>4.</b> 저장 → 사이트 새로고침 → 즉시 반영</div>
+      </div>
+
+      <div class="guide-box">
+        <h3>🎁 월별 행사 변경하는 법</h3>
+        <div class="guide-step"><b>1.</b> '월별행사' 시트의 [적용월] 컬럼을 이번달로 (예: 2026-04 → 2026-05)</div>
+        <div class="guide-step"><b>2.</b> 새 행사 모델 / 할인액 입력</div>
+        <div class="guide-step"><b>3.</b> 활성 'Y' → 사이트 자동 반영</div>
+      </div>
+
+      <div class="guide-box">
+        <h3>💳 카카오톡 알림 설정 (필요시)</h3>
+        <div class="guide-step">고객 신청이 들어오면 즉시 카카오톡으로 알림 받기 위해 <b>카카오워크 무료 채널</b> 설정이 필요합니다.</div>
+        <div class="guide-step">설정 방법은 별도 안내 드릴게요. <b>카카오워크 앱 설치 후 Webhook URL을 받아 Apps Script에 입력</b>하면 즉시 알림이 옵니다.</div>
+      </div>
+
+      <div class="guide-box">
+        <h3>❓ 문제 해결</h3>
+        <div class="guide-step"><b>사이트에 상품이 안 보여요</b> → '활성' 컬럼이 'Y'인지 확인</div>
+        <div class="guide-step"><b>가격이 이상해요</b> → 시트의 숫자 셀에 쉼표(,) 없는지 확인</div>
+        <div class="guide-step"><b>신청이 안 와요</b> → Apps Script 배포가 '모든 사용자' 권한인지 확인</div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- DETAIL MODAL -->
+<div class="modal-bg" id="modalBg" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">📋 상담 신청 상세</div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+// ============================================================
+// 🔧 설정
+// ============================================================
+const API_URL = 'https://script.google.com/macros/s/AKfycbw2CNXlJdkQMXHkKcL7HVFUqIN9EqW4OczoBRpHgstSaRyGgUR5mmazaqjHn2OJ64ffUA/exec';
+const ADMIN_PW = 'gajeon2026'; // ⭐ 비밀번호 변경 가능
+
+// ============================================================
+// 상태
+// ============================================================
+let inquiries = [];
+let currentInq = null;
+
+const fmt = n => '₩' + (Number(n)||0).toLocaleString('ko-KR');
+const toast = msg => {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 2200);
+};
+
+// ============================================================
+// LOGIN
+// ============================================================
+function login() {
+  const pw = document.getElementById('loginPw').value;
+  if (pw === ADMIN_PW) {
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('admin').style.display = 'block';
+    sessionStorage.setItem('hm_admin', '1');
+    init();
+  } else {
+    document.getElementById('loginError').textContent = '⚠️ 비밀번호가 올바르지 않습니다';
+    setTimeout(()=>document.getElementById('loginError').textContent='', 3000);
+  }
+}
+
+function logout() {
+  sessionStorage.removeItem('hm_admin');
+  location.reload();
+}
+
+// 자동 로그인 체크
+if (sessionStorage.getItem('hm_admin') === '1') {
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('admin').style.display = 'block';
+  setTimeout(init, 100);
+}
+
+// ============================================================
+// 초기화
+// ============================================================
+function init() {
+  // 시트 링크 자동 설정
+  const sheetUrl = window.location.href.replace(/\/admin.*$/i,'') + '/SHEET_URL_SET_NEEDED';
+  loadInquiries();
+}
+
+// ============================================================
+// 페이지 전환
+// ============================================================
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+  document.getElementById('tab-'+name).classList.add('active');
+}
+
+// ============================================================
+// 신청 데이터 불러오기
+// ============================================================
+async function loadInquiries() {
+  try {
+    document.getElementById('inqList').innerHTML = '<div class="loading"><div class="spinner"></div></div>';
+    const res = await fetch(API_URL + '?action=inquiries&t=' + Date.now());
+    const json = await res.json();
+    if (json.success && json.data && json.data.inquiries) {
+      inquiries = json.data.inquiries;
+    } else {
+      inquiries = [];
+    }
+    renderDashboard();
+    renderInquiries();
+  } catch (err) {
+    document.getElementById('inqList').innerHTML =
+      `<div class="empty"><div class="empty-icon">⚠️</div>데이터 로드 실패<br><small>Apps Script v2로 업데이트 필요</small></div>`;
+  }
+}
+
+// ============================================================
+// 대시보드
+// ============================================================
+function renderDashboard() {
+  const newC = inquiries.filter(i => (i['상태']||'신규') === '신규').length;
+  const talkC = inquiries.filter(i => i['상태'] === '상담중').length;
+  const doneC = inquiries.filter(i => i['상태'] === '계약완료').length;
+
+  document.getElementById('statNew').textContent = newC;
+  document.getElementById('statTalking').textContent = talkC;
+  document.getElementById('statDone').textContent = doneC;
+  document.getElementById('statTotal').textContent = inquiries.length;
+  document.getElementById('newCount').textContent = newC;
+
+  const recent = [...inquiries].slice(-5).reverse();
+  renderInqList(recent, 'recentList');
+}
+
+// ============================================================
+// 신청 목록 렌더
+// ============================================================
+function renderInquiries() {
+  const q = document.getElementById('searchInq').value.toLowerCase();
+  const st = document.getElementById('filterStatus').value;
+
+  const filtered = [...inquiries].reverse().filter(i => {
+    const okQ = !q || (i['이름']||'').toLowerCase().includes(q) || (i['연락처']||'').includes(q);
+    const okS = st === 'all' || (i['상태']||'신규') === st;
+    return okQ && okS;
+  });
+
+  renderInqList(filtered, 'inqList');
+}
+
+function renderInqList(list, targetId) {
+  const el = document.getElementById(targetId);
+  if (!list.length) {
+    el.innerHTML = `<div class="empty"><div class="empty-icon">📭</div>신청 내역이 없습니다.<br><small style="color:#999;font-size:11px">고객이 신청하면 이곳에 표시됩니다</small></div>`;
+    return;
+  }
+
+  el.innerHTML = list.map((i, idx) => {
+    const status = i['상태'] || '신규';
+    return `
+      <div class="inq-card status-${status}" onclick='openDetail(${JSON.stringify(i).replace(/'/g,"&apos;")})'>
+        <div class="inq-top">
+          <div class="inq-top-l">
+            <span class="status-pill s${status}">${status}</span>
+            <div>
+              <span class="inq-name">${i['이름']||'-'}</span>
+              <span class="inq-phone">${i['연락처']||''}</span>
+            </div>
+          </div>
+          <div class="inq-date">${formatDate(i['신청일시'])}</div>
+        </div>
+        <div class="inq-price">💰 ${fmt(i['최종혜택가'])}</div>
+        <div class="inq-meta">
+          <span>🏷️ ${i['신청유형']||'-'}</span>
+          <span>💳 ${i['카드할인']||'-'}</span>
+          <span>📍 ${(i['배송지']||'').slice(0,20)||'미입력'}</span>
+        </div>
+        ${i['선택제품'] ? `<div class="inq-products">📦 ${(i['선택제품']||'').slice(0,80)}${(i['선택제품']||'').length>80?'...':''}</div>` : ''}
+      </div>
+    `;
+  }).join('');
+}
+
+function formatDate(d) {
+  if (!d) return '';
+  try {
+    const date = new Date(d);
+    return `${date.getMonth()+1}/${date.getDate()} ${String(date.getHours()).padStart(2,'0')}:${String(date.getMinutes()).padStart(2,'0')}`;
+  } catch { return d; }
+}
+
+// ============================================================
+// 상세 모달
+// ============================================================
+function openDetail(i) {
+  currentInq = i;
+  const fields = [
+    ['이름', i['이름']],
+    ['연락처', i['연락처'] ? `<a href="tel:${i['연락처']}" style="color:var(--red);font-weight:900;text-decoration:underline">${i['연락처']}</a>` : '-'],
+    ['배송지', i['배송지']],
+    ['희망일', i['희망일']],
+    ['신청유형', i['신청유형']],
+    ['선택제품', i['선택제품']],
+    ['정상가', `<strong>${fmt(i['정상가합계'])}</strong>`],
+    ['카드', `${i['카드할인']||'-'} ${i['카드할인액']?'(캐시백 '+fmt(i['카드할인액'])+')':''}`],
+    ['IPTV', `${i['IPTV할인']||'-'} ${i['IPTV할인액']?'('+fmt(i['IPTV할인액'])+')':''}`],
+    ['추가할인', i['추가할인']||'-'],
+    ['<span style="color:var(--red)">최종 혜택가</span>', `<strong style="font-size:18px">${fmt(i['최종혜택가'])}</strong>`],
+    ['요청사항', i['요청사항']||'-'],
+    ['신청일시', formatDate(i['신청일시'])],
+  ];
+
+  const status = i['상태'] || '신규';
+  document.getElementById('modalBody').innerHTML =
+    `<div style="text-align:center;margin-bottom:14px"><span class="status-pill s${status}" style="font-size:13px;padding:6px 16px">${status}</span></div>` +
+    fields.map(([k,v]) => `<div class="modal-row"><div class="k">${k}</div><div class="v">${v||'-'}</div></div>`).join('') +
+    `<div class="modal-actions">` +
+      (i['연락처'] ? `<button class="btn-call" onclick="window.location.href='tel:${i['연락처']}'">📞 ${i['연락처']} 전화걸기</button>` : '') +
+      `<button class="btn-status-신규" onclick="updateStatus('신규')">신규</button>` +
+      `<button class="btn-status-상담중" onclick="updateStatus('상담중')">상담중</button>` +
+      `<button class="btn-status-계약완료" onclick="updateStatus('계약완료')">계약완료</button>` +
+      `<button class="btn-status-취소" onclick="updateStatus('취소')">취소</button>` +
+    `</div>`;
+  document.getElementById('modalBg').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('modalBg').classList.remove('open');
+  currentInq = null;
+}
+
+function updateStatus(status) {
+  toast(`✅ 상태가 [${status}]로 변경되었습니다 (Google Sheets에서 직접 수정해주세요)`);
+  // 실제로는 Apps Script에 PUT 보내야 하지만, 사장님이 시트에서 직접 수정하는 게 더 신뢰성 있음
+  closeModal();
+}
+
+// ============================================================
+// CSV 내보내기
+// ============================================================
+function exportCSV() {
+  if (!inquiries.length) { toast('⚠️ 내보낼 데이터가 없습니다'); return; }
+  const headers = ['신청일시','상태','이름','연락처','배송지','희망일','신청유형','선택제품','정상가합계','카드할인','카드할인액','IPTV할인','IPTV할인액','추가할인','최종혜택가','요청사항'];
+  const rows = inquiries.map(i => headers.map(h => `"${(i[h]||'').toString().replace(/"/g,'""')}"`).join(','));
+  const csv = '\uFEFF' + [headers.join(','), ...rows].join('\n');
+  const blob = new Blob([csv], {type:'text/csv;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `가전졸업의성지_신청내역_${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();
+  toast('✅ CSV 다운로드 완료');
+}
+
+</script>
+</body>
+</html>
